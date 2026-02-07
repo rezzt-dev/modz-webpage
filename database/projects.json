@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Overpowered Enchantments",
+    "type": "mod",
+    "description": "Extends vanilla enchantments up to level 50 and customizes enchanting costs.",
+    "icon": "local_fire_department",
+    "problem": "Vanilla Minecraft enchantments are capped at low levels, limiting the potential power players can achieve in end-game scenarios.",
+    "solution": "Unlocks enchantment limits allowing levels up to 50 and adjusts anvil repair costs to make maintaining overpowered gear viable.",
+    "launcher": "neoforge",
+    "version": "1.21.8",
+    "environment": "Client + Server",
+    "dependency": "NeoForge",
+    "downloadUrl": "https://www.mediafire.com/file/mkuqk8k2uuldy23/overpowered_enchants-1.0.0.jar",
+    "id": "1770396435705"
+  }
+]
