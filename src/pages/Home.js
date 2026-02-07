@@ -10,10 +10,11 @@ export default async function Home() {
   let activeType = 'all';
   let activeLauncher = 'all';
   let searchQuery = '';
-  // Load initial data from manager
-  let projects = projectManager.getAll();
+  let projects = [];
 
   const render = () => {
+    // Refresh data on every render to ensure latest state
+    projects = projectManager.getAll();
     container.innerHTML = '';
 
     // Hero / Title Section
@@ -159,8 +160,9 @@ export default async function Home() {
     container.appendChild(bottomBar);
   }
 
-  // Subscribe to locale changes
-  subscribe(render);
+  // Subscribe to changes
+  subscribe(render); // Locales
+  projectManager.subscribe(render); // Data changes
   render();
 
   return container;

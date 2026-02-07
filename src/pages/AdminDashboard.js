@@ -39,7 +39,7 @@ export default function AdminDashboard() {
 
     <!-- Table / List -->
     <div class="border border-white/10 bg-surface/20">
-        <div class="grid grid-cols-12 gap-4 p-4 border-b border-white/10 text-[10px] uppercase tracking-widest text-secondary font-bold">
+        <div class="hidden md:grid grid-cols-12 gap-4 p-4 border-b border-white/10 text-[10px] uppercase tracking-widest text-secondary font-bold">
             <div class="col-span-1">ID</div>
             <div class="col-span-5">TITLE</div>
             <div class="col-span-2">TYPE</div>
@@ -50,17 +50,36 @@ export default function AdminDashboard() {
         <div id="project-list">
              ${projects.length === 0 ? '<div class="p-8 text-center text-secondary text-xs">NO_DATA</div>' : ''}
              ${projects.map(p => `
-                <div class="grid grid-cols-12 gap-4 p-4 border-b border-white/5 items-center hover:bg-white/5 transition-colors text-xs font-mono">
-                    <div class="col-span-1 text-secondary opacity-50 text-[10px] truncate">${p.id}</div>
-                    <div class="col-span-5 text-white font-bold flex items-center gap-2">
-                        ${(p.icon && (p.icon.includes('/') || p.icon.includes('.')))
-      ? `<img src="${p.icon}" class="w-4 h-4 object-contain inline-block" alt="icon" onerror="this.outerHTML='<i class=\\'material-icons text-sm text-white/70\\'>broken_image</i>'" />`
-      : `<i class="material-icons text-sm text-white/70">${p.icon || 'star'}</i>`}
-                        ${p.title}
+                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 p-4 border-b border-white/5 items-start md:items-center hover:bg-white/5 transition-colors text-xs font-mono relative group">
+                    <!-- Mobile Actions Positioned Absolute Top Right -->
+                    <div class="absolute top-4 right-4 md:hidden flex gap-3">
+                         <a href="#/admin/edit/${p.id}" class="text-white hover:underline decoration-white/30">EDIT</a>
+                         <button data-id="${p.id}" class="delete-btn text-red-500 hover:text-red-400">DEL</button>
                     </div>
-                    <div class="col-span-2 text-secondary uppercase text-[10px]">${p.type}</div>
-                    <div class="col-span-2 text-secondary">${p.version}</div>
-                    <div class="col-span-2 flex justify-end gap-3">
+
+                    <div class="w-full md:col-span-1 text-secondary opacity-50 text-[10px] truncate flex justify-between md:block">
+                        <span class="md:hidden uppercase tracking-widest">ID:</span>
+                        ${p.id}
+                    </div>
+                    
+                    <div class="w-full md:col-span-5 text-white font-bold flex items-center gap-2 mb-2 md:mb-0">
+                         ${(p.icon && (p.icon.includes('/') || p.icon.includes('.')))
+      ? `<img src="${p.icon}" class="w-4 h-4 object-contain inline-block" alt="icon" onerror="this.outerHTML='<i class=\\'material-icons text-sm text-white/70\\'>broken_image</i>'" />`
+      : `<i class="material-icons text-sm text-white/70 mr-1">${p.icon || 'star'}</i>`}
+                        <span class="text-sm">${p.title}</span>
+                    </div>
+                    
+                    <div class="w-full md:col-span-2 text-secondary uppercase text-[10px] flex justify-between md:block border-b border-white/5 md:border-none pb-2 md:pb-0 mb-2 md:mb-0">
+                        <span class="md:hidden font-bold">TYPE:</span>
+                        ${p.type}
+                    </div>
+                    
+                    <div class="w-full md:col-span-2 text-secondary flex justify-between md:block border-b border-white/5 md:border-none pb-2 md:pb-0 mb-2 md:mb-0">
+                        <span class="md:hidden font-bold text-[10px] uppercase tracking-widest">VERSION:</span>
+                        ${p.version}
+                    </div>
+                    
+                    <div class="md:col-span-2 hidden md:flex justify-end gap-3">
                         <a href="#/admin/edit/${p.id}" class="text-white hover:underline decoration-white/30">EDIT</a>
                         <button data-id="${p.id}" class="delete-btn text-red-500 hover:text-red-400">DEL</button>
                     </div>
