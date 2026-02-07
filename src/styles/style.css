@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "tailwindcss";
+
+@theme {
+  --color-background: #050505;
+  --color-surface: #111111;
+  --color-primary: #FFFFFF;
+  --color-secondary: #888888;
+  --color-accent: #FFFFFF;
+  --color-border: rgba(255, 255, 255, 0.1);
+
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-primary font-mono antialiased;
+  }
+
+  ::selection {
+    @apply bg-white text-background;
+  }
+
+  /* Custom Scrollbar for Webkit */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border: 1px solid #000;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+/* Material Icons Enforcer */
+.material-icons {
+  font-family: 'Material Icons' !important;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+@layer components {
+  .border-tech {
+    @apply border border-border;
+  }
+
+  .text-tech-sm {
+    @apply text-xs uppercase tracking-wider text-secondary;
+  }
+
+  /* Form Elements */
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23888888' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+
+  select:focus,
+  input:focus,
+  textarea:focus {
+    @apply outline-none border-white transition-colors duration-200;
+  }
+
+  option {
+    @apply bg-black text-white px-4 py-2;
+  }
+}
