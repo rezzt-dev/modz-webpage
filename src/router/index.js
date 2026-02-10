@@ -55,4 +55,7 @@ export function initRouter(containerId) {
 
   window.addEventListener('hashchange', handleRoute);
   window.addEventListener('load', handleRoute);
+
+  // Initialize immediately since window.load might have already happened
+  handleRoute();
 }
