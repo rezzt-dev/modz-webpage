@@ -11,6 +11,20 @@
     "environment": "Client + Server",
     "dependency": "NeoForge",
     "downloadUrl": "https://www.mediafire.com/file/mkuqk8k2uuldy23/overpowered_enchants-1.0.0.jar",
-    "id": "1770396435705"
+    "id": "1"
+  },
+  {
+    "title": "Eazzy Server Utils",
+    "type": "mod",
+    "description": "Eazzy Server Utils is a NeoForge mod for Minecraft 1.21.8 that adds essential utilities for multiplayer servers, serving both regular players and staff with categorized commands.",
+    "icon": "local_fire_department",
+    "problem": "Multiplayer servers often lack quick-access tools for homes, teleports, and admin functions, which slows down gameplay and server management.",
+    "solution": "The mod offers organized command categories with cooldowns, permission levels, and features like homes, warps, heads, player utils, and staff tools for smooth operations.",
+    "launcher": "neoforge",
+    "version": "1.21.8",
+    "environment": "Client + Server",
+    "dependency": "NeoForge",
+    "downloadUrl": "https://www.mediafire.com/file/serssevbgrjlcmf/eazzy_server_utils-1.0.0.jar/file",
+    "id": "2"
   }
 ]
