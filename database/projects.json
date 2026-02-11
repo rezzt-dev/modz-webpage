@@ -26,5 +26,19 @@
     "dependency": "NeoForge",
     "downloadUrl": "https://www.mediafire.com/file/serssevbgrjlcmf/eazzy_server_utils-1.0.0.jar/file",
     "id": "2"
+  },
+  {
+    "title": "Compact Villagers",
+    "type": "mod",
+    "description": "A NeoForge mod for Minecraft 1.21.8 that simplifies villager management by allowing storage, infinite trading, and quick trade cycling in one package.",
+    "icon": "attach_file",
+    "problem": "Existing villager-related mods were not fully compatible with NeoForge and required multiple installations for similar functionalities.",
+    "solution": "Combines villager pickup, infinite trading, and trade cycling into a single, fully NeoForge-compatible mod using native Vanilla rendering.",
+    "launcher": "neoforge",
+    "version": "1.21.8",
+    "environment": "Client + Server",
+    "dependency": "NeoForge",
+    "downloadUrl": "https://www.mediafire.com/file/9ojvn35tnvc8jug/compactvillagers-1.0.0.jar/file",
+    "id": "3"
   }
 ]
