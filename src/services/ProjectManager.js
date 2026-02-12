@@ -3,7 +3,7 @@ import { AuthService } from './AuthService.js';
 
 class ProjectManager {
   constructor() {
-    this.storageKey = 'modz_projects_v1';
+    this.storageKey = 'modz_projects_v2';
     this.projects = this._load();
     this._migrate();
     this.listeners = [];

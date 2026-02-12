@@ -1,8 +1,13 @@
+import { projectManager } from '../services/ProjectManager.js';
+
 export default function ProjectCard(project) {
   const card = document.createElement('a');
   card.href = `#/view`;
-  card.onclick = () => {
+  card.onclick = (e) => {
+    e.preventDefault();
+    console.log('ProjectCard clicked:', project.id, project.title);
     projectManager.setCurrentProject(project.id);
+    window.location.hash = '#/view';
   };
   card.className = 'block border border-border bg-surface/50 hover:bg-surface hover:border-white/30 transition-all duration-300 group relative overflow-hidden';
 
