@@ -1,17 +1,34 @@
 import { projectManager } from '../services/ProjectManager.js';
 import { t, subscribe } from '../data/locales.js';
+import { AuthService } from '../services/AuthService.js';
 
-export default function ProjectDetail({ id }) {
-  const project = projectManager.getById(id);
+export default function ProjectDetail() {
+  const project = projectManager.getCurrentProject();
+
   const container = document.createElement('div');
   container.className = 'container mx-auto px-6 pb-20';
 
-  if (!project) {
-    const renderError = () => {
-      container.innerHTML = `<div class="text-center py-20 text-red-500 font-mono">${t('project.error')}</div>`;
-    }
-    subscribe(renderError);
-    renderError();
+  // Unified Error Screen:
+  // 1. Project doesn't exist (e.g. refresh on /view without state)
+  // 2. Project is hidden AND user is not admin
+  const isHiddenAndUnauthorized = project?.hidden && !AuthService.isAuthenticated();
+
+  if (!project || isHiddenAndUnauthorized) {
+    container.innerHTML = `
+      <div class="flex flex-col items-center justify-center min-h-[60vh] text-center">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tighter mb-4 text-red-500 uppercase glitch-text">
+          MOD NO ACCESIBLE
+        </h1>
+        <p class="text-secondary tracking-widest text-xs uppercase max-w-md">
+          This content is currently hidden, in development, or does not exist.
+        </p>
+        <div class="mt-8">
+            <a href="#/" class="px-6 py-2 border border-white/20 hover:bg-white hover:text-black transition-colors text-xs uppercase tracking-widest">
+                Return Home
+            </a>
+        </div>
+      </div>
+    `;
     return container;
   }
 

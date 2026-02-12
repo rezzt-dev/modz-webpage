@@ -68,6 +68,21 @@ export const projects = [
     icon: 'memory',
     dependency: 'RebornCore',
     environment: 'Client + Server'
+  },
+  {
+    id: '999',
+    title: 'Hidden Admin Mod',
+    type: 'mod',
+    launcher: 'fabric',
+    version: '0.0.1',
+    description: 'This is a hidden mod for admins only.',
+    problem: 'Secrets need to be kept.',
+    solution: 'Hides the mod from public view.',
+    specs: 'Top Secret.',
+    icon: 'security',
+    dependency: 'None',
+    environment: 'Server Side',
+    hidden: true
   }
 ];
 

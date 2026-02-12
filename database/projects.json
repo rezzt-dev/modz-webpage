@@ -11,7 +11,8 @@
     "environment": "Client + Server",
     "dependency": "NeoForge",
     "downloadUrl": "https://www.mediafire.com/file/mkuqk8k2uuldy23/overpowered_enchants-1.0.0.jar",
-    "id": "1"
+    "id": "1",
+    "hidden": false
   },
   {
     "title": "Eazzy Server Utils",
@@ -25,7 +26,8 @@
     "environment": "Client + Server",
     "dependency": "NeoForge",
     "downloadUrl": "https://www.mediafire.com/file/serssevbgrjlcmf/eazzy_server_utils-1.0.0.jar/file",
-    "id": "2"
+    "id": "2",
+    "hidden": false
   },
   {
     "title": "Compact Villagers",
@@ -39,6 +41,7 @@
     "environment": "Client + Server",
     "dependency": "NeoForge",
     "downloadUrl": "https://www.mediafire.com/file/9ojvn35tnvc8jug/compactvillagers-1.0.0.jar/file",
-    "id": "3"
+    "id": "3",
+    "hidden": false
   }
 ]

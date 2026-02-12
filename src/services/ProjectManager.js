@@ -6,6 +6,34 @@ class ProjectManager {
     this.projects = this._load();
     this._migrate();
     this.listeners = [];
+    this.currentProject = null;
+  }
+
+  setCurrentProject(id) {
+    this.currentProject = this.getById(id);
+    this._persistCurrent();
+  }
+
+  getCurrentProject() {
+    if (!this.currentProject) {
+      this._loadCurrent();
+    }
+    return this.currentProject;
+  }
+
+  _persistCurrent() {
+    if (this.currentProject) {
+      sessionStorage.setItem('modz_current_project_id', this.currentProject.id);
+    } else {
+      sessionStorage.removeItem('modz_current_project_id');
+    }
+  }
+
+  _loadCurrent() {
+    const id = sessionStorage.getItem('modz_current_project_id');
+    if (id) {
+      this.currentProject = this.getById(id);
+    }
   }
 
   subscribe(listener) {
@@ -17,24 +45,28 @@ class ProjectManager {
   }
 
   async initialize() {
-    try {
-      const response = await fetch('https://raw.githubusercontent.com/rezzt-dev/modz-webpage/main/database/projects.json');
-      if (!response.ok) throw new Error('Network response was not ok');
+    // try {
+    //   const response = await fetch('https://raw.githubusercontent.com/rezzt-dev/modz-webpage/main/database/projects.json');
+    //   if (!response.ok) throw new Error('Network response was not ok');
 
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        console.log('Remote data fetched successfully', data.length);
-        this.projects = data;
-        this._migrate(); // Ensure new data format is correct
-        this._persist(); // Update local storage
-        this.notify();
-        return true;
-      }
-    } catch (error) {
-      console.warn('Failed to fetch remote projects, using local backup:', error);
-      // Fallback is already loaded in constructor
-      return false;
-    }
+    //   const data = await response.json();
+    //   if (Array.isArray(data)) {
+    //     console.log('Remote data fetched successfully', data.length);
+    //     this.projects = data;
+    //     this._migrate(); // Ensure new data format is correct
+    //     this._persist(); // Update local storage
+    //     this.notify();
+    //     return true;
+    //   }
+    // } catch (error) {
+    //   console.warn('Failed to fetch remote projects, using local backup:', error);
+    //   // Fallback is already loaded in constructor
+    //   return false;
+    // }
+
+    // DEV MODE: Force local data for testing
+    console.warn('DEV MODE: Remote fetch disabled for testing');
+    return true;
   }
 
   _migrate() {

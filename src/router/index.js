@@ -10,6 +10,7 @@ import { AuthService } from '../services/AuthService.js';
 const routes = {
   '/': Home,
   '/login': Login,
+  '/view': ProjectDetail,
   '/admin': AdminDashboard,
   '/admin/create': AdminEditor,
   '/privacy': Privacy,

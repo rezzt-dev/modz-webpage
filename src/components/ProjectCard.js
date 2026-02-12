@@ -1,6 +1,9 @@
 export default function ProjectCard(project) {
   const card = document.createElement('a');
-  card.href = `#/mod/${project.id}`;
+  card.href = `#/view`;
+  card.onclick = () => {
+    projectManager.setCurrentProject(project.id);
+  };
   card.className = 'block border border-border bg-surface/50 hover:bg-surface hover:border-white/30 transition-all duration-300 group relative overflow-hidden';
 
   // Icon logic
