@@ -19,12 +19,12 @@ export default async function Home() {
 
     // Hero / Title Section
     const hero = document.createElement('div');
-    hero.className = 'mb-16 border-b border-white/10 pb-8';
+    hero.className = 'mb-12 md:mb-16 border-b border-white/10 pb-8';
     hero.innerHTML = `
-        <h1 class="text-4xl md:text-6xl font-bold tracking-tighter mb-4 text-white uppercase">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tighter mb-4 text-white uppercase break-all md:break-normal">
           modz.dev
         </h1>
-        <p class="text-secondary tracking-widest text-xs uppercase max-w-2xl">
+        <p class="text-secondary tracking-widest text-xs uppercase max-w-2xl leading-relaxed">
            ${t('home.subtitle')}
         </p>
       `;
@@ -41,17 +41,17 @@ export default async function Home() {
             <input type="text" id="search-input" value="${searchQuery}" placeholder="${t('home.searchPlaceholder')}" class="w-full bg-transparent border-b border-white/10 text-xs py-2 pl-10 pr-4 text-white focus:outline-none focus:border-white transition-colors uppercase tracking-wider placeholder:text-secondary/50">
         </div>
 
-        <div class="flex flex-wrap gap-8 items-center w-full lg:w-auto">
-            <div class="flex items-center gap-4">
-                <span class="text-[10px] text-secondary uppercase tracking-widest">${t('home.filters')}</span>
+        <div class="flex flex-wrap gap-6 items-center w-full lg:w-auto">
+            <div class="flex flex-wrap items-center gap-4">
+                <span class="text-[10px] text-secondary uppercase tracking-widest hidden sm:inline-block">${t('home.filters')}</span>
                 
-                <div class="flex gap-2" id="type-filters">
+                <div class="flex flex-wrap gap-2" id="type-filters">
                    <!-- Populated via JS helper -->
                 </div>
                 
-                 <div class="h-4 w-px bg-white/10 mx-2"></div>
+                 <div class="h-4 w-px bg-white/10 mx-2 hidden sm:block"></div>
 
-                 <div class="flex gap-2" id="launcher-filters">
+                 <div class="flex flex-wrap gap-2" id="launcher-filters">
                    <!-- Populated via JS helper -->
                 </div>
             </div>
@@ -60,7 +60,7 @@ export default async function Home() {
 
     // Grid
     const grid = document.createElement('div');
-    grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-px bg-white/10 border border-white/10';
+    grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-px md:bg-white/10 md:border border-white/10';
 
     // Helper to render filter buttons
     const createFilterButton = (text, value, group, isActive) => {

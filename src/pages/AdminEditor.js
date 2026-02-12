@@ -16,32 +16,31 @@ export default function AdminEditor({ id }) {
         return document.createElement('div').innerHTML = "ERROR_NOT_FOUND";
     }
 
-    const container = document.createElement('div');
     container.className = 'container mx-auto px-6 pb-20';
 
     container.innerHTML = `
-    <div class="mb-12 border-b border-white/10 pb-6 flex justify-between items-end">
+        <div class="mb-8 md:mb-12 border-b border-white/10 pb-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-            <div class="text-xs text-secondary font-mono mb-2 uppercase tracking-widest">ROOT / ${isEdit ? 'EDIT_ENTRY' : 'NEW_ENTRY'}</div>
-            <h1 class="text-4xl font-bold text-white">Create Content</h1>
+            <div class="text-[10px] md:text-xs text-secondary font-mono mb-2 uppercase tracking-widest">ROOT / ${isEdit ? 'EDIT_ENTRY' : 'NEW_ENTRY'}</div>
+            <h1 class="text-3xl md:text-4xl font-bold text-white">Create Content</h1>
         </div>
         <div>
-            <a href="#/admin" class="text-xs text-secondary hover:text-white uppercase tracking-widest">Create Cancel</a>
+            <a href="#/admin" class="text-[10px] md:text-xs text-secondary hover:text-white uppercase tracking-widest">Create Cancel</a>
         </div>
-    </div>
+    </div >
 
-    <p class="text-sm text-secondary font-mono max-w-2xl mb-12 opacity-70">
+    <p class="text-xs md:text-sm text-secondary font-mono max-w-2xl mb-8 md:mb-12 opacity-70 leading-relaxed">
         Populate the fields below to deploy a new resource to the repository.
         Ensure all technical specifications match the target environment.
     </p>
 
-    <form id="editor-form" class="space-y-16 max-w-4xl mx-auto">
+    <form id="editor-form" class="space-y-12 md:space-y-16 max-w-4xl mx-auto">
         
         <!-- Section 01 -->
         <div class="space-y-8">
             <h3 class="text-xs font-mono text-secondary uppercase tracking-widest border-b border-white/10 pb-2 w-32">01 / IDENTITY</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                 <div class="space-y-2 group">
                     <label class="block text-[10px] uppercase tracking-widest text-secondary group-focus-within:text-white transition-colors">PROJECT TITLE</label>
                     <input name="title" type="text" value="${project.title || ''}" class="w-full bg-transparent border-b border-white/20 py-2 text-white font-mono focus:outline-none focus:border-white transition-colors" placeholder="mod_name_v1">
@@ -94,7 +93,7 @@ export default function AdminEditor({ id }) {
         <div class="space-y-8">
             <h3 class="text-xs font-mono text-secondary uppercase tracking-widest border-b border-white/10 pb-2 w-40">03 / PARAMETERS</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                  <div class="space-y-2 group">
                     <label class="block text-[10px] uppercase tracking-widest text-secondary group-focus-within:text-white transition-colors">LAUNCHER TYPE</label>
                     <select name="launcher" class="w-full bg-transparent border-b border-white/20 py-2 text-white font-mono focus:outline-none focus:border-white transition-colors appearance-none">
@@ -111,7 +110,7 @@ export default function AdminEditor({ id }) {
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mt-8">
                 <div class="space-y-2 group">
                      <label class="block text-[10px] uppercase tracking-widest text-secondary group-focus-within:text-white transition-colors">ENVIRONMENT</label>
                      <select name="environment" class="w-full bg-transparent border-b border-white/20 py-2 text-white font-mono focus:outline-none focus:border-white transition-colors appearance-none">
@@ -134,14 +133,15 @@ export default function AdminEditor({ id }) {
             </div>
         </div>
 
-        <div class="pt-12 border-t border-white/10 flex justify-end gap-6">
-            <a href="#/admin" class="px-8 py-3 text-secondary hover:text-white text-xs uppercase tracking-widest transition-colors">Cancel</a>
-            <button type="submit" class="px-8 py-3 bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-white/90 transition-colors">
+        <div class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-end gap-4 md:gap-6">
+            <a href="#/admin" class="w-full md:w-auto px-8 py-3 text-secondary text-center hover:text-white text-xs uppercase tracking-widest transition-colors">Cancel</a>
+            <button type="submit" class="w-full md:w-auto px-8 py-3 bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-white/90 transition-colors">
                 ${isEdit ? 'UPDATE_RESOURCE' : 'DEPLOY_RESOURCE'}
             </button>
         </div>
     </form>
-  `;
+
+    `;
 
     // Init Icon Picker
     const pickerContainer = container.querySelector('#picker-container');

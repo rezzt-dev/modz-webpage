@@ -14,8 +14,8 @@ export default function Header() {
     const isMobileMenuOpen = header.classList.contains('mobile-menu-open');
 
     header.innerHTML = `
-        <div class="container mx-auto px-6 h-16 flex justify-between items-center relative z-50 bg-background/95 backdrop-blur">
-          <div class="flex items-center gap-8">
+        <div class="container mx-auto px-4 md:px-6 h-16 flex justify-between items-center relative z-50 bg-background/95 backdrop-blur">
+          <div class="flex items-center gap-4 md:gap-8">
             <a href="#/" class="text-sm font-bold tracking-widest hover:text-white transition-colors flex items-center gap-3">
               <div class="w-3 h-3 bg-white"></div>
               modz.dev
@@ -28,7 +28,7 @@ export default function Header() {
             </nav>
           </div>
 
-          <div class="flex items-center gap-6">
+          <div class="flex items-center gap-4 md:gap-6">
             <div class="hidden md:block text-xs text-secondary font-mono tracking-widest">
               ${t('header.status')}
             </div>
@@ -42,7 +42,7 @@ export default function Header() {
             </button>
 
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-white p-2">
+            <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:bg-white/10 rounded transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     ${isMobileMenuOpen ? '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>' : '<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>'}
                 </svg>
@@ -51,26 +51,26 @@ export default function Header() {
         </div>
 
         <!-- Mobile Menu Overlay -->
-        <div class="${isMobileMenuOpen ? 'flex' : 'hidden'} md:hidden fixed inset-0 top-16 bg-background/95 backdrop-blur z-40 flex-col p-6 gap-8 text-center animate-fade-in border-t border-white/10">
+        <div class="${isMobileMenuOpen ? 'flex' : 'hidden'} md:hidden absolute left-0 right-0 top-16 bg-background/98 backdrop-blur z-40 flex-col p-6 gap-8 text-center border-t border-white/10 overflow-y-auto h-[calc(100vh-4rem)]">
              <nav class="flex flex-col gap-6 text-sm tracking-widest text-secondary font-bold uppercase">
-              <a href="#/" class="hover:text-white py-4 border-b border-white/5">${t('header.browse')}</a>
-              <a href="#" class="hover:text-white py-4 border-b border-white/5">${t('header.publishers')}</a>
-              <a href="#" class="hover:text-white py-4 border-b border-white/5">${t('header.docs')}</a>
+              <a href="#/" class="hover:text-white py-4 border-b border-white/5 mobile-link">${t('header.browse')}</a>
+              <a href="#" class="hover:text-white py-4 border-b border-white/5 mobile-link">${t('header.publishers')}</a>
+              <a href="#" class="hover:text-white py-4 border-b border-white/5 mobile-link">${t('header.docs')}</a>
             </nav>
 
-            <div class="flex flex-col gap-6 mt-auto mb-12">
-                 <button id="mobile-lang-toggle" class="text-xs font-mono font-bold text-secondary hover:text-white uppercase py-4 border border-white/10">
-                    LANGUAGE: [${lang.toUpperCase()}]
-                </button>
-                <button id="mobile-login-btn" class="text-xs font-bold bg-white text-black py-4 uppercase hover:bg-white/90">
-                    ${t('header.login')}
-                </button>
-                <div class="text-[10px] text-secondary font-mono tracking-widest mt-4">
-                  ${t('header.status')}
-                </div>
-            </div>
+        <div class="flex flex-col gap-6 mt-auto mb-12">
+          <button id="mobile-lang-toggle" class="text-xs font-mono font-bold text-secondary hover:text-white uppercase py-4 border border-white/10">
+            LANGUAGE: [${lang.toUpperCase()}]
+          </button>
+          <button id="mobile-login-btn" class="text-xs font-bold bg-white text-black py-4 uppercase hover:bg-white/90">
+            ${t('header.login')}
+          </button>
+          <div class="text-[10px] text-secondary font-mono tracking-widest mt-4">
+            ${t('header.status')}
+          </div>
         </div>
-      `;
+      </div>
+    `;
 
     header.querySelector('#lang-toggle')?.addEventListener('click', () => setLanguage(lang === 'en' ? 'es' : 'en'));
     header.querySelector('#mobile-lang-toggle')?.addEventListener('click', () => setLanguage(lang === 'en' ? 'es' : 'en'));

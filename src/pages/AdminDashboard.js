@@ -13,24 +13,24 @@ export default function AdminDashboard() {
   const projects = projectManager.getAll();
 
   container.innerHTML = `
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 border-b border-white/10 pb-6">
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8 md:mb-12 border-b border-white/10 pb-6">
         <div>
-            <h1 class="text-3xl font-bold uppercase tracking-tight text-white mb-2">Admin Console</h1>
-            <p class="text-xs text-secondary font-mono">
+            <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-white mb-2">Admin Console</h1>
+            <p class="text-[10px] md:text-xs text-secondary font-mono">
                 MANAGE_RESOURCES // ${projects.length}_ENTRIES
             </p>
         </div>
         
-        <div class="flex gap-4">
-             <button id="download-json" class="px-6 py-2 border border-white/20 text-xs text-white hover:bg-white hover:text-black transition-colors uppercase tracking-wider">
+        <div class="flex flex-wrap gap-4 w-full lg:w-auto">
+             <button id="download-json" class="flex-1 lg:flex-none px-4 md:px-6 py-2 border border-white/20 text-[10px] md:text-xs text-white hover:bg-white hover:text-black transition-colors uppercase tracking-wider whitespace-nowrap">
                 EXPORT_JSON
             </button>
-             <button id="import-btn" class="px-6 py-2 border border-white/20 text-xs text-white hover:bg-white hover:text-black transition-colors uppercase tracking-wider">
+             <button id="import-btn" class="flex-1 lg:flex-none px-4 md:px-6 py-2 border border-white/20 text-[10px] md:text-xs text-white hover:bg-white hover:text-black transition-colors uppercase tracking-wider whitespace-nowrap">
                 IMPORT_JSON
             </button>
             <input type="file" id="import-input" accept=".json" class="hidden">
 
-             <a href="#/admin/create" class="px-6 py-2 bg-white text-black text-xs font-bold hover:bg-white/90 transition-colors uppercase tracking-wider flex items-center gap-2">
+             <a href="#/admin/create" class="flex-1 lg:flex-none justify-center px-4 md:px-6 py-2 bg-white text-black text-[10px] md:text-xs font-bold hover:bg-white/90 transition-colors uppercase tracking-wider flex items-center gap-2 whitespace-nowrap">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 New Entry
             </a>
