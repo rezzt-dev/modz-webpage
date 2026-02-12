@@ -1,4 +1,5 @@
 import { projects as initialData } from '../data/projects.js';
+import { AuthService } from './AuthService.js';
 
 class ProjectManager {
   constructor() {
@@ -113,7 +114,10 @@ class ProjectManager {
   }
 
   getAll() {
-    return this.projects;
+    if (AuthService.isAuthenticated()) {
+      return this.projects;
+    }
+    return this.projects.filter(p => !p.hidden);
   }
 
   getById(id) {
