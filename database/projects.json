@@ -12,7 +12,7 @@
     "dependency": "NeoForge",
     "downloadUrl": "https://www.mediafire.com/file/mkuqk8k2uuldy23/overpowered_enchants-1.0.0.jar",
     "id": "1",
-    "hidden": false
+    "hidden": true
   },
   {
     "title": "Eazzy Server Utils",
