@@ -10,14 +10,14 @@ export default function AdminDashboard() {
 
   const container = document.createElement('div');
   container.className = 'container mx-auto px-6 pb-20';
-  const projects = projectManager.getAll();
 
-  container.innerHTML = `
+  // Header
+  const header = `
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8 md:mb-12 border-b border-white/10 pb-6">
         <div>
             <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-white mb-2">Admin Console</h1>
-            <p class="text-[10px] md:text-xs text-secondary font-mono">
-                MANAGE_RESOURCES // ${projects.length}_ENTRIES
+            <p class="text-[10px] md:text-xs text-secondary font-mono" id="project-count">
+                MANAGE_RESOURCES // ENTRIES
             </p>
         </div>
         
@@ -48,43 +48,7 @@ export default function AdminDashboard() {
         </div>
         
         <div id="project-list">
-             ${projects.length === 0 ? '<div class="p-8 text-center text-secondary text-xs">NO_DATA</div>' : ''}
-             ${projects.map(p => `
-                <div class="flex flex-col md:grid md:grid-cols-12 gap-4 p-4 border-b border-white/5 items-start md:items-center hover:bg-white/5 transition-colors text-xs font-mono relative group">
-                    <!-- Mobile Actions Positioned Absolute Top Right -->
-                    <div class="absolute top-4 right-4 md:hidden flex gap-3">
-                         <a href="#/admin/edit/${p.id}" class="text-white hover:underline decoration-white/30">EDIT</a>
-                         <button data-id="${p.id}" class="delete-btn text-red-500 hover:text-red-400">DEL</button>
-                    </div>
-
-                    <div class="w-full md:col-span-1 text-secondary opacity-50 text-[10px] truncate flex justify-between md:block">
-                        <span class="md:hidden uppercase tracking-widest">ID:</span>
-                        ${p.id}
-                    </div>
-                    
-                    <div class="w-full md:col-span-5 text-white font-bold flex items-center gap-2 mb-2 md:mb-0">
-                         ${(p.icon && (p.icon.includes('/') || p.icon.includes('.')))
-      ? `<img src="${p.icon}" class="w-4 h-4 object-contain inline-block" alt="icon" onerror="this.outerHTML='<i class=\\'material-icons text-sm text-white/70\\'>broken_image</i>'" />`
-      : `<i class="material-icons text-sm text-white/70 mr-1">${p.icon || 'star'}</i>`}
-                        <span class="text-sm">${p.title}</span>
-                    </div>
-                    
-                    <div class="w-full md:col-span-2 text-secondary uppercase text-[10px] flex justify-between md:block border-b border-white/5 md:border-none pb-2 md:pb-0 mb-2 md:mb-0">
-                        <span class="md:hidden font-bold">TYPE:</span>
-                        ${p.type}
-                    </div>
-                    
-                    <div class="w-full md:col-span-2 text-secondary flex justify-between md:block border-b border-white/5 md:border-none pb-2 md:pb-0 mb-2 md:mb-0">
-                        <span class="md:hidden font-bold text-[10px] uppercase tracking-widest">VERSION:</span>
-                        ${p.version}
-                    </div>
-                    
-                    <div class="md:col-span-2 hidden md:flex justify-end gap-3">
-                        <a href="#/admin/edit/${p.id}" class="text-white hover:underline decoration-white/30">EDIT</a>
-                        <button data-id="${p.id}" class="delete-btn text-red-500 hover:text-red-400">DEL</button>
-                    </div>
-                </div>
-             `).join('')}
+             <!-- Projects Rendered Here -->
         </div>
     </div>
     
@@ -96,13 +60,68 @@ export default function AdminDashboard() {
     </div>
   `;
 
+  container.innerHTML = header;
+
+  // Render Function
+  const renderProjects = () => {
+    const projects = projectManager.getAll();
+    const listContainer = container.querySelector('#project-list');
+    const countLabel = container.querySelector('#project-count');
+
+    countLabel.textContent = `MANAGE_RESOURCES // ${projects.length}_ENTRIES`;
+
+    if (projects.length === 0) {
+      listContainer.innerHTML = '<div class="p-8 text-center text-secondary text-xs">NO_DATA</div>';
+      return;
+    }
+
+    listContainer.innerHTML = projects.map(p => `
+        <div class="flex flex-col md:grid md:grid-cols-12 gap-4 p-4 border-b border-white/5 items-start md:items-center hover:bg-white/5 transition-colors text-xs font-mono relative group">
+            <!-- Mobile Actions Positioned Absolute Top Right -->
+            <div class="absolute top-4 right-4 md:hidden flex gap-3">
+                    <a href="#/admin/edit/${p.id}" class="text-white hover:underline decoration-white/30">EDIT</a>
+                    <button data-id="${p.id}" class="delete-btn text-red-500 hover:text-red-400">DEL</button>
+            </div>
+
+            <div class="w-full md:col-span-1 text-secondary opacity-50 text-[10px] truncate flex justify-between md:block">
+                <span class="md:hidden uppercase tracking-widest">ID:</span>
+                ${p.id}
+            </div>
+            
+            <div class="w-full md:col-span-5 text-white font-bold flex items-center gap-2 mb-2 md:mb-0">
+                    ${(p.icon && (p.icon.includes('/') || p.icon.includes('.')))
+        ? `<img src="${p.icon}" class="w-4 h-4 object-contain inline-block" alt="icon" onerror="this.outerHTML='<i class=\\'material-icons text-sm text-white/70\\'>broken_image</i>'" />`
+        : `<i class="material-icons text-sm text-white/70 mr-1">${p.icon || 'star'}</i>`}
+                <span class="text-sm">${p.title}</span>
+            </div>
+            
+            <div class="w-full md:col-span-2 text-secondary uppercase text-[10px] flex justify-between md:block border-b border-white/5 md:border-none pb-2 md:pb-0 mb-2 md:mb-0">
+                <span class="md:hidden font-bold">TYPE:</span>
+                ${p.type}
+            </div>
+            
+            <div class="w-full md:col-span-2 text-secondary flex justify-between md:block border-b border-white/5 md:border-none pb-2 md:pb-0 mb-2 md:mb-0">
+                <span class="md:hidden font-bold text-[10px] uppercase tracking-widest">VERSION:</span>
+                ${p.version}
+            </div>
+            
+            <div class="md:col-span-2 hidden md:flex justify-end gap-3">
+                <a href="#/admin/edit/${p.id}" class="text-white hover:underline decoration-white/30">EDIT</a>
+                <button data-id="${p.id}" class="delete-btn text-red-500 hover:text-red-400">DEL</button>
+            </div>
+        </div>
+    `).join('');
+  };
+
+  // Initial Render
+  renderProjects();
+
   // Actions
   container.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete-btn')) {
       if (confirm('CONFIRM_DELETION?')) {
         projectManager.delete(e.target.dataset.id);
-        // Rerender (simple way is reload hash)
-        window.location.reload();
+        renderProjects();
       }
     }
   });
@@ -158,7 +177,7 @@ export default function AdminDashboard() {
       const content = e.target.result;
       if (projectManager.importJSON(content)) {
         alert('IMPORT_SUCCESS');
-        window.location.reload();
+        renderProjects();
       } else {
         alert('IMPORT_FAILED: INVALID_JSON');
       }

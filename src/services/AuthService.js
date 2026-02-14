@@ -4,7 +4,9 @@ export const AuthService = {
     const validPass = import.meta.env.VITE_ADMIN_PASS;
 
     if (username === validUser && password === validPass) {
-      sessionStorage.setItem('auth_token', 'valid_session');
+      // Store the actual password to send it as an authentication token
+      // In a full implementation, this should be a session token returned by the server
+      sessionStorage.setItem('auth_token', password);
       return true;
     }
     return false;
@@ -15,6 +17,7 @@ export const AuthService = {
   },
 
   isAuthenticated() {
-    return sessionStorage.getItem('auth_token') === 'valid_session';
+    const token = sessionStorage.getItem('auth_token');
+    return token && token.length > 0;
   }
 };

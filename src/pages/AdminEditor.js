@@ -13,9 +13,12 @@ export default function AdminEditor({ id }) {
     const project = isEdit ? projectManager.getById(id) : {};
 
     if (isEdit && !project) {
-        return document.createElement('div').innerHTML = "ERROR_NOT_FOUND";
+        const errorDiv = document.createElement('div');
+        errorDiv.innerHTML = "ERROR_NOT_FOUND";
+        return errorDiv;
     }
 
+    const container = document.createElement('div');
     container.className = 'container mx-auto px-6 pb-20';
 
     container.innerHTML = `
