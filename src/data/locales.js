@@ -70,6 +70,67 @@ const resources = {
       terms: 'TERMS',
       privacy: 'PRIVACY',
       latency: 'LATENCY: 14MS // SERVER: EU-WEST-1'
+    },
+    auth: {
+      identify: 'Identify',
+      subtitle: 'SECURE_TERMINAL_ACCESS // V3.1',
+      username: 'USERNAME',
+      password: 'PASSWORD',
+      placeholderUser: 'ENTER_ID...',
+      placeholderPass: '••••••••',
+      authenticate: 'AUTHENTICATE',
+      error: 'ACCESS_DENIED // INVALID_CREDENTIALS',
+      logout: 'LOGOUT'
+    },
+    dashboard: {
+      title: 'Admin Console',
+      subtitle: 'MANAGE_RESOURCES // ENTRIES',
+      export: 'EXPORT_JSON',
+      import: 'IMPORT_JSON',
+      newEntry: 'NEW ENTRY',
+      downloadTemplate: 'DOWNLOAD_JSON_TEMPLATE',
+      noData: 'NO_DATA',
+      columns: {
+        id: 'ID',
+        title: 'TITLE',
+        type: 'TYPE',
+        version: 'VERSION',
+        actions: 'ACTIONS'
+      },
+      actions: {
+        edit: 'EDIT',
+        del: 'DEL',
+        confirmDelete: 'CONFIRM_DELETION?'
+      },
+      importSuccess: 'IMPORT_SUCCESS',
+      importError: 'IMPORT_FAILED: INVALID_JSON'
+    },
+    editor: {
+      root: 'ROOT',
+      editEntry: 'EDIT_ENTRY',
+      newEntry: 'NEW_ENTRY',
+      createContent: 'Create Content',
+      cancel: 'CREATE CANCEL',
+      desc: 'Populate the fields below to deploy a new resource to the repository. Ensure all technical specifications match the target environment.',
+      s1: '01 / IDENTITY',
+      projectTitle: 'PROJECT TITLE',
+      category: 'CATEGORY',
+      shortDesc: 'SHORT DESCRIPTION',
+      iconSelector: 'ICON SELECTOR',
+      selected: 'Selected:',
+      s2: '02 / DOCUMENTATION',
+      problemStatement: 'PROBLEM STATEMENT',
+      proposedSolution: 'PROPOSED SOLUTION',
+      s3: '03 / PARAMETERS',
+      launcherType: 'LAUNCHER TYPE',
+      version: 'VERSION',
+      environment: 'ENVIRONMENT',
+      dependency: 'DEPENDENCY',
+      filePath: 'FILE PATH / DOWNLOAD URL',
+      pathHint: 'Relative path to public folder (e.g. /my-mod.jar) or external link. Supports .jar, .zip',
+      update: 'UPDATE_RESOURCE',
+      deploy: 'DEPLOY_RESOURCE',
+      notFound: 'ERROR_NOT_FOUND'
     }
   },
   es: {
@@ -143,6 +204,67 @@ const resources = {
       terms: 'TERMINOS',
       privacy: 'PRIVACIDAD',
       latency: 'LATENCIA: 14MS // SERVIDOR: EU-WEST-1'
+    },
+    auth: {
+      identify: 'Identificarse',
+      subtitle: 'ACCESO_TERMINAL_SEGURO // V3.1',
+      username: 'USUARIO',
+      password: 'PASSWORD',
+      placeholderUser: 'ENTRAR_ID...',
+      placeholderPass: '••••••••',
+      authenticate: 'AUTENTICAR',
+      error: 'ACCESO_DENEGADO // CREDENCIALES_INVALIDAS',
+      logout: 'CERRAR SESION'
+    },
+    dashboard: {
+      title: 'Consola de Admin',
+      subtitle: 'GESTIONAR_RECURSOS // ENTRADAS',
+      export: 'EXPORTAR_JSON',
+      import: 'IMPORTAR_JSON',
+      newEntry: 'NUEVA ENTRADA',
+      downloadTemplate: 'DESCARGAR_PLANTILLA_JSON',
+      noData: 'SIN_DATOS',
+      columns: {
+        id: 'ID',
+        title: 'TITULO',
+        type: 'TIPO',
+        version: 'VERSION',
+        actions: 'ACCIONES'
+      },
+      actions: {
+        edit: 'EDITAR',
+        del: 'BORRAR',
+        confirmDelete: '¿CONFIRMAR_BORRADO?'
+      },
+      importSuccess: 'IMPORTACION_EXITOSA',
+      importError: 'FALLO_IMPORTACION: JSON_INVALIDO'
+    },
+    editor: {
+      root: 'RAIZ',
+      editEntry: 'EDITAR_ENTRADA',
+      newEntry: 'NUEVA_ENTRADA',
+      createContent: 'Crear Contenido',
+      cancel: 'CANCELAR CREACION',
+      desc: 'Complete los campos a continuación para implementar un nuevo recurso en el repositorio. Asegúrese de que todas las especificaciones técnicas coincidan con el entorno de destino.',
+      s1: '01 / IDENTIDAD',
+      projectTitle: 'TITULO DEL PROYECTO',
+      category: 'CATEGORIA',
+      shortDesc: 'DESCRIPCION CORTA',
+      iconSelector: 'SELECTOR DE ICONOS',
+      selected: 'Seleccionado:',
+      s2: '02 / DOCUMENTACION',
+      problemStatement: 'PLANTEAMIENTO DEL PROBLEMA',
+      proposedSolution: 'SOLUCION PROPUESTA',
+      s3: '03 / PARAMETROS',
+      launcherType: 'TIPO DE LANZADOR',
+      version: 'VERSION',
+      environment: 'ENTORNO',
+      dependency: 'DEPENDENCIA',
+      filePath: 'RUTA DE ARCHIVO / URL DESCARGA',
+      pathHint: 'Ruta relativa a carpeta pública (ej. /mi-mod.jar) o enlace externo. Soporta .jar, .zip',
+      update: 'ACTUALIZAR_RECURSO',
+      deploy: 'IMPLEMENTAR_RECURSO',
+      notFound: 'ERROR_NO_ENCONTRADO'
     }
   }
 };

@@ -11,28 +11,28 @@ export default function Login() {
         <div class="absolute top-0 left-0 w-full h-1 bg-white/20"></div>
         <div class="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-white/40"></div>
         
-        <h2 class="text-2xl font-bold uppercase tracking-widest text-white mb-2">Identify</h2>
+        <h2 class="text-2xl font-bold uppercase tracking-widest text-white mb-2">${t('auth.identify')}</h2>
         <p class="text-xs text-secondary font-mono mb-8 opacity-70">
-            SECURE_TERMINAL_ACCESS // V3.1
+            ${t('auth.subtitle')}
         </p>
 
         <form id="login-form" class="space-y-6">
             <div class="space-y-2">
-                <label class="block text-[10px] uppercase tracking-widest text-secondary">Username</label>
-                <input type="text" id="username" class="w-full bg-surface/50 border border-white/10 p-3 text-xs text-white focus:border-white/50 focus:outline-none transition-colors font-mono" placeholder="ENTER_ID...">
+                <label class="block text-[10px] uppercase tracking-widest text-secondary">${t('auth.username')}</label>
+                <input type="text" id="username" class="w-full bg-surface/50 border border-white/10 p-3 text-xs text-white focus:border-white/50 focus:outline-none transition-colors font-mono" placeholder="${t('auth.placeholderUser')}">
             </div>
             
             <div class="space-y-2">
-                <label class="block text-[10px] uppercase tracking-widest text-secondary">Password</label>
-                <input type="password" id="password" class="w-full bg-surface/50 border border-white/10 p-3 text-xs text-white focus:border-white/50 focus:outline-none transition-colors font-mono" placeholder="••••••••">
+                <label class="block text-[10px] uppercase tracking-widest text-secondary">${t('auth.password')}</label>
+                <input type="password" id="password" class="w-full bg-surface/50 border border-white/10 p-3 text-xs text-white focus:border-white/50 focus:outline-none transition-colors font-mono" placeholder="${t('auth.placeholderPass')}">
             </div>
 
             <div id="error-msg" class="text-red-500 text-xs font-mono hidden">
-                ACCESS_DENIED // INVALID_CREDENTIALS
+                ${t('auth.error')}
             </div>
 
             <button type="submit" class="w-full py-4 bg-white text-black font-bold uppercase tracking-widest text-xs hover:bg-gray-200 transition-colors mt-4">
-                Authenticate
+                ${t('auth.authenticate')}
             </button>
         </form>
     </div>

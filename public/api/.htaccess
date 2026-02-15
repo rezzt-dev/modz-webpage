@@ -1,4 +1,30 @@
-<Files "projects.json">
+# Evitar listado de directorio
+Options -Indexes
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "DENY"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    # CSP Basico (Ajustar si usas scripts externos como Google Analytics)
+    Header set Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:;"
+</IfModule>
+
+# Bloquear acceso directo a archivos sensibles
+<FilesMatch "(^\.|^composer\.json|package\.json|.*\.md|.*\.sql|.*\.log|.*\.env|.*\.ini)$">
     Order Allow,Deny
     Deny from all
+</FilesMatch>
+
+# Bloquear acceso directo a JSON (Base de datos)
+<FilesMatch "\.json$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Permitir acceso a projects.php (ya que es la API pública)
+<Files projects.php>
+    Order Allow,Deny
+    Allow from all
 </Files>

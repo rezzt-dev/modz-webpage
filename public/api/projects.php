@@ -71,14 +71,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = file_get_contents('php://input');
     
     // Validar que sea JSON válido
-    if (json_decode($input) === null) {
+    $data = json_decode($input, true); // Decode as associative array
+    if ($data === null) {
         http_response_code(400);
         echo json_encode(['error' => 'Invalid JSON payload']);
         exit;
     }
+    
+    // Función recursiva de sanitización simple
+    function sanitizeRecursive($item) {
+        if (is_array($item)) {
+            return array_map('sanitizeRecursive', $item);
+        }
+        if (is_string($item)) {
+            // Eliminar etiquetas script y eventos on*
+            // Esto es básico. Para seguridad industrial usar HTMLPurifier.
+            $clean = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', "", $item);
+            $clean = preg_replace('/on\w+="[^"]*"/i', "", $clean);
+            return htmlspecialchars($clean, ENT_QUOTES, 'UTF-8');
+        }
+        return $item;
+    }
+    
+    // Sanitizar entrada
+    $cleanData = sanitizeRecursive($data);
 
-    // Guardar
-    if (file_put_contents($dataFile, $input) !== false) {
+    // Guardar (Codificar de nuevo a JSON)
+    if (file_put_contents($dataFile, json_encode($cleanData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false) {
         echo json_encode(['success' => true]);
     } else {
         http_response_code(500);
