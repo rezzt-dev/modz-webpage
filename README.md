@@ -98,4 +98,4 @@ This application implements several layers of security to ensure data integrity 
 
 **© 2026 REZZT.DEV**
 
-This software is proprietary. Unauthorized copying, modification, distribution, or use of this file, via any medium, is strictly prohibited without the express written permission of the copyright holder.
+This software is proprietary. Unauthorized copying, modification, distribution, or use of this file, via any medium, is strictly prohibited without the express written permission of the copyright holder. See the [LICENSE](./LICENSE) file for the full non-commercial license terms.
