@@ -15,6 +15,14 @@ la autenticación actual es una protección mínima para desarrollo:
 - `projects.php` compara el token recibido con un valor compartido en el servidor.
 - la autorización de las rutas `/admin` se realiza en el cliente y no constituye un control de acceso del servidor.
 
+## NUEVA BASE
+
+`web-project/` contiene únicamente el esqueleto de la futura aplicación. todavía no expone rutas de autenticación, operaciones de administración ni acceso a la base de datos.
+
+la nueva base ignora los ficheros `.env`, valida las variables del servidor y reserva better auth y postgresql para sustituir las credenciales del cliente. antes de publicar funcionalidad se debe deshabilitar el alta pública, crear usuarios desde un flujo administrativo protegido y comprobar autorización en cada acción y consulta sensible.
+
+los valores de `web-project/.env.example` son ficticios y no deben reutilizarse como secretos reales.
+
 ## RIESGOS CONOCIDOS
 
 ### CREDENCIALES EXPUESTAS

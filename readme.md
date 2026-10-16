@@ -1,6 +1,6 @@
 # MODZ WEBPAGE
 
-modz.dev es un índice web para descubrir, consultar y administrar proyectos del ecosistema de minecraft. la aplicación ofrece una interfaz de una sola página, navegación mediante hash, soporte bilingüe y un panel de administración para mantener el catálogo de proyectos.
+modz.dev es un índice web para descubrir, consultar y administrar proyectos del ecosistema de minecraft. el repositorio conserva la aplicación anterior como referencia y contiene la base técnica de su futura versión profesional.
 
 <p align="center">
   <strong>un catálogo técnico ligero para mods, plugins y datapacks.</strong>
@@ -8,7 +8,8 @@ modz.dev es un índice web para descubrir, consultar y administrar proyectos del
 
 ## CONTENIDO
 
-- `modz-web/`: aplicación vite, recursos estáticos, datos iniciales y api php opcional.
+- `modz-web/`: aplicación anterior con vite, recursos estáticos, datos iniciales y api php opcional.
+- `web-project/`: nuevo proyecto full-stack con next.js, typescript, postgresql y herramientas de calidad.
 - `modz-web/src/pages/`: vistas de inicio, detalle, autenticación, administración, privacidad y términos.
 - `modz-web/src/components/`: componentes reutilizables de cabecera, pie, tarjetas y formularios.
 - `modz-web/src/services/`: gestión del catálogo y autenticación del panel.
@@ -35,6 +36,8 @@ modz.dev es un índice web para descubrir, consultar y administrar proyectos del
 - node.js y npm para el desarrollo y la compilación.
 - un navegador moderno con soporte para javascript, `fetch` y `sessionStorage`.
 - php y un servidor web compatible si se desea utilizar la api de persistencia.
+
+los requisitos y comandos del nuevo proyecto se documentan en `web-project/README.md`.
 
 ## INSTALACIÓN
 
