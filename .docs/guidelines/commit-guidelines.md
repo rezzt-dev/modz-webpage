@@ -28,7 +28,7 @@ se combinan ni se inventan otras nuevas:
 | **update** | trabajo normal hacia adelante: se añade o mejora una funcionalidad, contenido o documento existente. es el prefijo por defecto. |
 | **fix** | se corrige un error o comportamiento incorrecto detectado durante el desarrollo, sin urgencia de publicacion inmediata. |
 | **hotfix** | se corrige algo urgente que afecta a una version ya publicada o a un bloqueo critico. debe usarse solo cuando la correccion es realmente urgente. |
-| **changes** | cambios estructurales o no funcionales: reorganizar carpetas, renombrar ficheros, tocar configuracion o tooling, dependencias. no anade funcionalidad ni corrige un bug. |
+| **changes** | cambios estructurales o no funcionales: reorganizar carpetas, renombrar ficheros, tocar configuración o tooling, dependencias. no añade funcionalidad ni corrige un bug. |
 | **changelog** | el unico proposito del commit es editar `changelog.md` (por ejemplo, al cerrar una version). |
 
 ejemplos de titulos correctos:

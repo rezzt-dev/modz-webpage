@@ -16,7 +16,7 @@
 
 este documento asume conocido el formato de `changelog.md` (descrito en
 `agents.md` y `claude.md`, seccion "formato de las secciones de
-`changelog.md`") y el de los commits (`.docs/commit-guidelines.md`). no lo
+`changelog.md`") y el de los commits (`.docs/guidelines/commit-guidelines.md`). no lo
 repite salvo lo estrictamente necesario.
 
 ---
@@ -26,10 +26,10 @@ repite salvo lo estrictamente necesario.
 pull requests, merges y releases **no inventan su propio formato**: reusan
 literalmente el contenido y las reglas de estilo de `changelog.md`.
 
-- **minusculas y sin acentos** en todo el contenido; los titulos/encabezados
-  van en mayusculas y sin acentos.
+- **minúsculas y con la ortografía correcta** en todo el contenido; los
+  títulos/encabezados van en mayúsculas y conservan acentos y `Ñ`.
 - **categorias cerradas**, las mismas cinco de `changelog.md` y en el mismo
-  orden — nunca, cambios, corregido, eliminado, seguridad
+  orden — añadido, cambiado, corregido, eliminado, seguridad
   (added / changed / fixed / removed / security) — omitiendo la que no tenga
   items.
 - **una linea por item**, en imperativo, con nombres de ficheros, rutas,
@@ -55,7 +55,7 @@ titulo; la descripcion es igual para las dos.
 
 **pr de trabajo normal** (una rama `feature/...` o `fix/...` contra
 `testing-branch`, o cualquier pr que no cierra una version): mismo formato
-que el titulo de un commit, definido en `.docs/commit-guidelines.md`:
+que el titulo de un commit, definido en `.docs/guidelines/commit-guidelines.md`:
 
 ```
 <prefijo> | <resumen corto en imperativo>
@@ -97,14 +97,14 @@ cual, con sus encabezados `####` de categoria:
 ```
 
 si la pr solo aporta una parte de `## SIN PUBLICAR / UNRELEASED` (por
-ejemplo, varias pr pequenas alimentan la misma version antes de cerrarla),
+ejemplo, varias pr pequeñas alimentan la misma versión antes de cerrarla),
 la descripcion incluye solo los items que introduce esa pr, no la seccion
 entera.
 
-no se anaden parrafos sueltos, capturas de pantalla incrustadas como texto,
+no se añaden párrafos sueltos, capturas de pantalla incrustadas como texto,
 ni resumenes adicionales fuera de la lista: si hace falta contexto extra (por
 ejemplo, capturas de pantalla de cambios visuales, ver `agents.md` seccion
-10), se anade **despues** de la lista, nunca sustituyendola.
+10), se añade **después** de la lista, nunca sustituyéndola.
 
 ---
 
@@ -118,7 +118,7 @@ seguido del titulo y cuerpo de la pr). por tanto:
   formato sin trabajo adicional.
 - usa siempre **"create a merge commit"** al fusionar (nunca squash ni
   rebase): el historial de commits individuales, redactado segun
-  `.docs/commit-guidelines.md`, debe conservarse completo junto al resumen de
+  `.docs/guidelines/commit-guidelines.md`, debe conservarse completo junto al resumen de
   la pr en el commit de merge.
 - si el merge se hace manualmente por git (`git merge --no-ff`), el mensaje
   del commit de merge se redacta a mano siguiendo el mismo titulo (seccion
@@ -187,8 +187,8 @@ version que la cabecera de `changelog.md`, sin sufijos adicionales).
 
 ## FLUJO RESUMIDO
 
-1. durante el desarrollo, cada commit sigue `.docs/commit-guidelines.md` y
-   cada cambio relevante se anade a `## SIN PUBLICAR / UNRELEASED` en
+1. durante el desarrollo, cada commit sigue `.docs/guidelines/commit-guidelines.md` y
+   cada cambio relevante se añade a `## SIN PUBLICAR / UNRELEASED` en
    `changelog.md` en su categoria correspondiente.
 2. cada pr (normal o de version) usa el titulo y la descripcion definidos en
    la seccion 1, extraidos de `changelog.md`.
