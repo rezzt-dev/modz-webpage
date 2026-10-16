@@ -1,96 +1,44 @@
 # MODZ WEB
 
-base técnica de la nueva versión de `modz.dev`, con catálogo público de proyectos y panel de administración para gestionar sus fichas y lanzamientos.
+catálogo de proyectos de minecraft con páginas estáticas en astro, componentes react y datos gestionados en supabase.
 
-## REQUISITOS
-
-- node.js compatible con el rango declarado en `package.json`.
-- pnpm `12.13.0`.
-- postgresql para persistencia local y de producción.
-
-## INSTALACIÓN
+## DESARROLLO
 
 ```bash
 pnpm install
 cp .env.example .env.local
-```
-
-los valores de `.env.example` son solo referencias locales. genera un secreto de autenticación propio y no publiques `.env.local`.
-la conexión local de postgresql usa `127.0.0.1` para evitar errores de resolución dual de `localhost` cuando el servidor no está disponible.
-
-## COMANDOS
-
-```bash
 pnpm dev
 pnpm check
+```
+
+configura `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_PUBLISHABLE_KEY` con los valores públicos del proyecto de supabase. la clave de servicio nunca debe incluirse en el frontend.
+
+## PREPARAR SUPABASE
+
+1. ejecuta, en este orden, `supabase/migrations/202610160001_initial.sql` y `supabase/migrations/202610160002_security_and_api.sql` desde el editor sql de supabase o mediante su cli.
+2. desactiva el registro público por correo en la configuración de autenticación.
+3. crea o invita a cada administrador desde el panel de supabase.
+4. concede acceso con `insert into public.admin_members (user_id) values ('uuid-del-usuario');` usando el identificador de `auth.users`.
+5. configura las urls del sitio y las urls de redirección permitidas en supabase auth para el dominio final.
+
+las políticas rls permiten leer proyectos publicados y públicos. los proyectos no listados solo se consultan por slug conocido; los privados y los borradores permanecen fuera de la api pública. las escrituras requieren sesión de administrador y se realizan en una única transacción mediante funciones sql. no se necesita servidor propio ni claves privadas en el hosting.
+
+si ya existe una base con el esquema de drizzle, aplica únicamente la segunda migración. haz una copia de seguridad antes de cualquier migración en producción.
+
+## RUTAS
+
+- `/`: catálogo público con búsqueda y filtros.
+- `/projects/?slug=mi-proyecto`: ficha pública y descargas publicadas.
+- `/admin/projects/`: inicio de sesión y biblioteca privada.
+- `/admin/projects/new/`: creación de proyecto.
+- `/admin/projects/edit/?id=uuid`: edición de proyecto.
+
+las consultas usan parámetros porque un hosting estático no puede generar rutas nuevas a partir de proyectos añadidos después de compilar. el servidor estático debe servir los archivos `index.html` de cada directorio. el archivo `404.html` redirige las antiguas fichas `/projects/slug` y las antiguas rutas de edición si el hosting utiliza páginas de error personalizadas.
+
+## DESPLIEGUE
+
+```bash
 pnpm build
-pnpm test:e2e:install
-pnpm test:e2e
-pnpm db:generate
-pnpm db:migrate
-pnpm db:studio
 ```
 
-`pnpm check` ejecuta lint, comprobación de tipos, tests unitarios y formato. los tests e2e se mantienen separados; `pnpm test:e2e:install` instala chromium la primera vez.
-
-## STACK
-
-- next.js con app router, react server components y rutas tipadas.
-- react y typescript en modo estricto.
-- tailwind css y shadcn/ui con tokens semánticos.
-- postgresql, drizzle orm y drizzle kit.
-- better auth para sesiones de servidor y creación privada de usuarios.
-- zod, react hook form y validación de entorno tipada.
-- next-intl para castellano e inglés.
-- vitest, testing library y playwright.
-- eslint, prettier, knip y pnpm con builds de dependencias autorizados explícitamente.
-
-## COMPLEMENTOS DE FRONTEND
-
-- anime.js para animaciones modulares; debe cargarse solo en componentes cliente y respetar `prefers-reduced-motion`.
-- next-themes para temas claro, oscuro y del sistema sin destellos de hidratación.
-- sonner para notificaciones accesibles y consistentes.
-- tanstack query y sus devtools para caché, mutaciones y sincronización de datos interactivos.
-- nuqs para búsqueda, filtros y paginación persistidos en la url.
-- date-fns para fechas sin incorporar una librería monolítica.
-- dnd kit para ordenar versiones, capturas o elementos del panel con soporte accesible.
-- react dropzone para seleccionar y validar archivos mediante arrastre o teclado.
-- plugins oficiales de formularios y tipografía de tailwind css; formularios usa la estrategia por clases para no alterar globalmente los controles de shadcn/ui.
-
-los complementos pesados o interactivos se importarán únicamente desde el módulo que los necesite. anime.js admite subrutas para conservar el tree shaking y tanstack query mantiene un cliente independiente por sesión del navegador.
-
-## ESTRUCTURA
-
-```text
-web-project/
-├── e2e/                 # pruebas de flujos completos
-├── public/images/       # recursos públicos del producto
-├── src/app/             # rutas, layouts y estados de next.js
-├── src/components/ui/   # componentes base de shadcn/ui
-├── src/db/schema/       # esquema relacional y migraciones generadas
-├── src/features/        # módulos de dominio por funcionalidad
-├── src/i18n/            # configuración y mensajes de idiomas
-├── src/lib/             # utilidades y configuración compartida
-├── src/server/          # consultas, acciones y servicios solo de servidor
-└── src/test/            # configuración y utilidades de tests
-```
-
-## INTERFAZ PÚBLICA
-
-- `/` presenta el catálogo con búsqueda por nombre, resumen, versión o loader y filtros por tipo y loader.
-- `/projects/[slug]` muestra la ficha técnica, los lanzamientos publicados y los enlaces de descarga disponibles.
-- el índice solo muestra proyectos publicados y públicos; los proyectos publicados no listados se pueden abrir por enlace directo, mientras que los borradores, proyectos privados y lanzamientos sin publicar permanecen fuera de las vistas públicas.
-- el catálogo ofrece estados de carga, vacío y error. los enlaces externos públicos se limitan a `http` y `https`.
-- la interfaz utiliza `jetbrains mono`, un sistema visual oscuro y monocromático y adaptaciones para móvil y movimiento reducido.
-
-el contenido público necesita una base de datos migrada y al menos un proyecto publicado. si la conexión falla, se muestra un mensaje de error con opción de reintento.
-
-## DECISIONES DE ARQUITECTURA
-
-el catálogo antiguo almacena una versión y un launcher directamente en cada proyecto. el nuevo modelo separa el proyecto de sus lanzamientos para permitir varias versiones de minecraft, loaders, archivos y enlaces por mod sin duplicar el contenido principal.
-
-la gestión de proyectos ya separa la ficha principal de sus lanzamientos, archivos, loaders y versiones de minecraft. las escrituras se validan en el servidor y se ejecutan mediante transacciones para no dejar datos parciales. ejecuta `pnpm db:migrate` antes de iniciar la aplicación por primera vez.
-
-la autenticación antigua expone credenciales en el cliente y usa un token compartido. better auth y postgresql sustituirán esa base por sesiones de servidor. el alta pública deberá permanecer deshabilitada; los usuarios con acceso al panel serán creados o invitados manualmente por un administrador. hasta integrar esa fase, el panel de gestión no debe exponerse públicamente.
-
-la interfaz se implementará por módulos y usará componentes de servidor por defecto. los componentes de cliente quedarán limitados a interacciones que necesiten estado o apis del navegador.
+sube el contenido de `dist/` al hosting estático. configura las dos variables `PUBLIC_*` durante la compilación. `pnpm check` ejecuta tipos, lint, tests y build. comprueba los flujos reales contra tu proyecto de supabase antes de publicar: sesión, permisos, alta, edición, borrado, proyectos no listados y enlaces de descarga.

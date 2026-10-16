@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts.astro";
+---
+
+<Layout title="Página no encontrada · modz">
+  <div class="site-shell min-h-screen grid place-items-center p-6">
+    <main class="max-w-lg text-center">
+      <p class="eyebrow">404 / RUTA NO ENCONTRADA</p>
+      <h1 class="mt-6 text-3xl font-semibold">Esta página no existe.</h1>
+      <p class="mt-4 text-sm text-white/50">
+        Comprueba la dirección o vuelve al catálogo de proyectos.
+      </p>
+      <a class="text-action mt-8 inline-block" href="/">
+        VOLVER AL ÍNDICE ↗
+      </a>
+    </main>
+  </div>
+  <script is:inline>
+    const match = location.pathname.match(/^\/projects\/([^/]+)\/?$/);
+    const edit = location.pathname.match(
+      /^\/admin\/projects\/([0-9a-f-]{36})\/?$/i,
+    );
+    if (match) location.replace(`/projects/?slug=${match[1]}`);
+    else if (edit)
+      location.replace(
+        `/admin/projects/edit/?id=${encodeURIComponent(edit[1])}`,
+      );
+  </script>
+</Layout>

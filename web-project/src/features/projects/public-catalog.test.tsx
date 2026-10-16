@@ -5,14 +5,6 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ProjectSummary } from "./project-schema";
 import { PublicCatalog } from "./public-catalog";
 
-vi.mock("next/link", () => ({
-  default: ({ children, href, ...props }: React.ComponentProps<"a">) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
-
 const projects: ProjectSummary[] = [
   {
     id: "1",

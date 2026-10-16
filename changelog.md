@@ -5,75 +5,63 @@
 ### CASTELLANO
 
 #### AÑADIDO
-- incorpora el catálogo público filtrable y las fichas de proyecto en `web-project/src/app/`, con estados de carga, vacío y error y acceso a lanzamientos publicados.
-- incorpora consultas públicas restringidas a contenido publicado y validación de enlaces externos en `web-project/src/server/projects/public-project-repository.ts` y `web-project/src/lib/public-url.ts`.
-- incorpora pruebas de filtros del catálogo y protocolos de enlaces públicos en `web-project/src/features/projects/public-catalog.test.tsx` y `web-project/src/lib/public-url.test.ts`.
-- incorpora el panel privado de proyectos en `web-project/src/app/admin/` con navegación, métricas, estados de carga y error, listado filtrable y formularios para crear y editar proyectos y lanzamientos.
-- incorpora acciones de servidor y un repositorio transaccional en `web-project/src/features/projects/` y `web-project/src/server/projects/` para validar, guardar, sincronizar y eliminar proyectos junto con sus versiones, loaders y archivos.
-- incorpora el modelo relacional de proyectos y lanzamientos en `web-project/src/db/schema/index.ts`, su conexión PostgreSQL en `web-project/src/db/index.ts` y la migración inicial de `web-project/drizzle/`.
-- incorpora validación tipada con Zod y pruebas de esquemas en `web-project/src/features/projects/project-schema.ts` y `web-project/src/features/projects/project-schema.test.ts`, incluyendo slugs, URLs y versiones duplicadas.
-- incorpora la identidad visual del panel, el wordmark de `web-project/src/components/brand/wordmark.tsx` y los estados globales de interfaz en `web-project/src/app/globals.css`.
-- incorpora anime.js, temas, notificaciones, caché de cliente, estado de url, fechas, drag-and-drop, carga de archivos y plugins oficiales de tailwind css como complementos de frontend para la nueva base.
-- incorpora un proveedor cliente mínimo para temas, tanstack query, nuqs, sonner y herramientas de desarrollo cargadas bajo demanda.
-- incorpora en `web-project/` la base full-stack de la nueva versión con next.js, typescript, tailwind css, shadcn/ui, postgresql, drizzle orm, better auth, internacionalización y herramientas automatizadas de calidad.
-- incorpora configuración inicial para eslint, prettier, knip, vitest, testing library y playwright, junto con validación tipada del entorno y scripts de base de datos.
-- incorpora las guías de commits, pull requests, releases y markdown en `.docs/guidelines/` para documentar el flujo de trabajo del repositorio.
-- incorpora las skills de frontend, diseño, shadcn y patrones de composición de react en `.docs/skills/` como material de apoyo para el desarrollo.
-- incorpora la documentación operativa completa en `agents.md`, `claude.md`, `readme.md` y `security.md` para agentes, colaboradores y github.
-- incorpora la licencia de uso y las condiciones de distribución en `license.md`.
+- incorpora la nueva aplicación estática de `web-project/` con astro, react, tailwind css y rutas públicas y privadas preparadas para hosting sin servidor.
+- incorpora el cliente de supabase en `web-project/src/lib/supabase.ts` y las consultas del catálogo y del panel en `web-project/src/lib/projects-api.ts`.
+- incorpora autenticación por correo para el panel y control de acceso mediante `public.admin_members`.
+- incorpora migraciones de supabase en `web-project/supabase/migrations/` con el esquema relacional, políticas rls y funciones atómicas para guardar y eliminar proyectos.
+- incorpora estados de carga, vacío, error, éxito y acceso denegado en el catálogo, las fichas públicas y el panel de administración.
+- incorpora redirecciones compatibles desde las rutas antiguas mediante `web-project/src/pages/404.astro`.
+- incorpora pruebas unitarias de filtros, validación de proyectos y protocolos de enlaces públicos en `web-project/src/features/projects/` y `web-project/src/lib/`.
 
 #### CAMBIADO
-- rediseña la identidad visual de `web-project/` con tipografía `jetbrains mono`, componentes industriales monocromáticos, portada, panel y estilos adaptables a móvil.
-- actualiza `web-project/README.md` con las rutas y condiciones de publicación del catálogo.
-- actualiza `web-project/README.md` para documentar la separación entre proyectos y lanzamientos, la migración inicial y el carácter todavía no público del panel de gestión.
-- documenta `modz-web/` como aplicación de referencia y `web-project/` como base de la futura versión profesional.
-- reorganiza la aplicación web completa dentro de `modz-web/`, incluyendo su configuración de vite, código fuente, recursos públicos y dependencias.
-- actualiza las guías de formato y el flujo documental para conservar la ortografía correcta y las rutas reales del repositorio.
+- sustituye next.js, drizzle orm, postgresql local y better auth por astro estático y supabase gestionado.
+- adapta el formulario, el listado y la ficha de proyectos para trabajar con consultas rpc y sesiones de supabase desde el navegador.
+- reorganiza estilos, layouts, páginas y componentes para conservar la identidad visual monocromática y mejorar la adaptación móvil.
+- actualiza `README.md`, `readme.md`, `agents.md`, `claude.md` y `security.md` con la arquitectura, las migraciones y el despliegue estático.
+- actualiza `.env.example` para usar `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 
 #### CORREGIDO
-- normaliza la conexión local de postgresql en `web-project/src/db/database-url.ts`, `web-project/src/db/index.ts` y `web-project/.env.example` para evitar `AggregateError` repetidos cuando la base de datos no está disponible.
+- corrige la exposición de proyectos no listados para que solo se consulten mediante slug conocido y no aparezcan en el catálogo general.
+- corrige el guardado de proyectos y lanzamientos para ejecutarlo dentro de una transacción sql con validación de permisos y datos.
+- corrige el desbordamiento horizontal del ticker del catálogo en pantallas pequeñas y añade rutas de fallback para enlaces antiguos.
 
 #### ELIMINADO
-- elimina del directorio raíz los ficheros de la aplicación que ahora se mantienen bajo `modz-web/`.
+- elimina la infraestructura de next.js, drizzle orm, better auth y la conexión directa a postgresql del proyecto nuevo.
+- elimina la aplicación antigua, su api php y sus credenciales compartidas del árbol activo del repositorio.
 
 #### SEGURIDAD
-- elimina el fichero raíz `.env` que contenía credenciales administrativas y mantiene el panel sin exposición pública hasta integrar la autenticación del servidor.
-- prepara validación de variables privadas y exclusión de secretos para la nueva base, sin exponer todavía rutas de autenticación ni operaciones administrativas.
+- protege lecturas y escrituras mediante políticas rls, funciones sql con `security definer` y comprobación de pertenencia a `admin_members`.
+- restringe las funciones de escritura de supabase a usuarios autenticados y revoca su ejecución pública y anónima.
+- documenta la rotación de las credenciales antiguas y evita incluir claves privadas en el bundle del sitio estático.
 
 ### ENGLISH
 
 #### ADDED
-- add the filterable public catalog and project detail pages under `web-project/src/app/`, including loading, empty and error states and access to published releases.
-- add public queries restricted to published content and external link validation in `web-project/src/server/projects/public-project-repository.ts` and `web-project/src/lib/public-url.ts`.
-- add catalog filter and public URL protocol tests in `web-project/src/features/projects/public-catalog.test.tsx` and `web-project/src/lib/public-url.test.ts`.
-- add the private project dashboard under `web-project/src/app/admin/` with navigation, metrics, loading and error states, filterable listings, and forms to create and edit projects and releases.
-- add server actions and a transactional repository under `web-project/src/features/projects/` and `web-project/src/server/projects/` to validate, save, synchronize, and delete projects together with their versions, loaders, and files.
-- add the relational project and release model in `web-project/src/db/schema/index.ts`, its PostgreSQL connection in `web-project/src/db/index.ts`, and the initial migration under `web-project/drizzle/`.
-- add typed Zod validation and schema tests in `web-project/src/features/projects/project-schema.ts` and `web-project/src/features/projects/project-schema.test.ts`, including slugs, URLs, and duplicate versions.
-- add the dashboard visual identity, the wordmark in `web-project/src/components/brand/wordmark.tsx`, and global interface states in `web-project/src/app/globals.css`.
-- add anime.js, themes, notifications, client caching, url state, dates, drag-and-drop, file selection, and official tailwind css plugins as frontend extensions for the new foundation.
-- add a minimal client provider for themes, tanstack query, nuqs, sonner, and development tools loaded on demand.
-- add the full-stack foundation for the new version under `web-project/` with next.js, typescript, tailwind css, shadcn/ui, postgresql, drizzle orm, better auth, internationalization, and automated quality tooling.
-- add initial eslint, prettier, knip, vitest, testing library, and playwright configuration together with typed environment validation and database scripts.
-- add commit, pull request, release, and markdown guidelines under `.docs/guidelines/` to document the repository workflow.
-- add frontend, design, shadcn, and react composition pattern skills under `.docs/skills/` as development support material.
-- add complete operational documentation in `agents.md`, `claude.md`, `readme.md`, and `security.md` for agents, contributors, and github.
-- add the usage license and distribution terms in `license.md`.
+- add the new static application under `web-project/` with astro, react, tailwind css, and public and private routes for serverless hosting.
+- add the supabase client in `web-project/src/lib/supabase.ts` and catalog and dashboard queries in `web-project/src/lib/projects-api.ts`.
+- add email authentication for the dashboard and access control through `public.admin_members`.
+- add supabase migrations under `web-project/supabase/migrations/` with the relational schema, rls policies, and atomic project write and delete functions.
+- add loading, empty, error, success, and access denied states to the catalog, public project pages, and administration dashboard.
+- add backwards compatible redirects from legacy routes through `web-project/src/pages/404.astro`.
+- add unit tests for filters, project validation, and public URL protocols under `web-project/src/features/projects/` and `web-project/src/lib/`.
 
 #### CHANGED
-- redesign the visual identity of `web-project/` with `jetbrains mono`, monochrome industrial components, a home page, an admin panel and responsive styles.
-- update `web-project/README.md` with catalog routes and publication conditions.
-- update `web-project/README.md` to document the separation between projects and releases, the initial migration, and the dashboard's still-private status.
-- document `modz-web/` as the reference application and `web-project/` as the foundation for the future professional version.
-- reorganize the complete web application under `modz-web/`, including its Vite configuration, source code, public assets, and dependencies.
-- update the formatting guidelines and documentation workflow to preserve correct spelling and the repository's actual paths.
+- replace next.js, drizzle orm, local postgresql, and better auth with static astro and managed supabase.
+- adapt the project form, list, and detail page to use supabase rpc queries and browser sessions.
+- reorganize styles, layouts, pages, and components to preserve the monochrome visual identity and improve mobile behavior.
+- update `README.md`, `readme.md`, `agents.md`, `claude.md`, and `security.md` with the architecture, migrations, and static deployment workflow.
+- update `.env.example` to use `PUBLIC_SUPABASE_URL` and `PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 
 #### FIXED
-- normalize the local postgresql connection in `web-project/src/db/database-url.ts`, `web-project/src/db/index.ts`, and `web-project/.env.example` to avoid repeated `AggregateError` failures when the database is unavailable.
+- fix unlisted project exposure so unlisted entries are fetched only by a known slug and never included in the general catalog.
+- fix project and release persistence by executing validated writes inside a protected sql transaction.
+- fix horizontal ticker overflow on small screens and add fallback routes for legacy links.
 
 #### REMOVED
-- remove the application files from the repository root now maintained under `modz-web/`.
+- remove the next.js, drizzle orm, better auth, and direct postgresql infrastructure from the new project.
+- remove the legacy application, its php api, and shared credentials from the active repository tree.
 
 #### SECURITY
-- remove the root `.env` file containing administrative credentials and keep the dashboard private until server authentication is integrated.
-- prepare private environment validation and secret exclusion for the new foundation without exposing authentication routes or administrative operations yet.
+- secure reads and writes with rls policies, `security definer` sql functions, and `admin_members` membership checks.
+- restrict supabase write functions to authenticated users and revoke public and anonymous execution.
+- document rotation of legacy credentials and prevent private keys from entering the static site bundle.

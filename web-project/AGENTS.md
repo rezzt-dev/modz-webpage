@@ -1,9 +1,8 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# INSTRUCCIONES DE `web-project`
 
-## This is NOT the Next.js you know
+esta aplicación usa astro con salida estática, react, typescript, tailwind y supabase. consulta `README.md` antes de cambiar el modelo de datos o las rutas.
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
+- conserva la identidad visual existente y reutiliza los componentes de `src/components/` y `src/features/`.
+- mantén las consultas públicas sujetas a rls y las escrituras protegidas por `admin_members` en supabase.
+- no incluyas claves privadas ni dependencias de servidor en el bundle del navegador.
+- ejecuta `pnpm check` antes de entregar cambios.

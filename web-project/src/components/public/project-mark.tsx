@@ -22,8 +22,6 @@ export function ProjectMark({
   return (
     <span className="project-mark" aria-hidden="true">
       {safeIconUrl ? (
-        // Project icons are user-managed URLs; preserve their original source.
-        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={safeIconUrl}
           alt=""

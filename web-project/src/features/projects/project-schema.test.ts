@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { describe, expect, it } from "vitest";
 
 import { projectInputSchema } from "./project-schema";
@@ -54,7 +55,7 @@ describe("projectInputSchema", () => {
     });
     expect(result.success).toBe(false);
     if (!result.success) {
-      const fields = result.error.flatten().fieldErrors;
+      const fields = z.flattenError(result.error).fieldErrors;
       expect(fields.slug).toBeDefined();
       expect(fields.releases).toBeDefined();
     }

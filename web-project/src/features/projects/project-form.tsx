@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState, useState } from "react";
-import Link from "next/link";
+import { useState, type SyntheticEvent } from "react";
+import { Link } from "@/components/link";
 import {
   ArrowDown,
   ArrowLeft,
@@ -18,7 +18,9 @@ import {
   Trash2,
 } from "lucide-react";
 
-import { initialProjectActionState, saveProjectAction } from "./actions";
+import { projectInputSchema } from "./project-schema";
+import { saveProject } from "@/lib/projects-api";
+import { z } from "zod";
 import {
   PROJECT_STATUSES,
   PROJECT_TYPES,
@@ -311,17 +313,70 @@ function ReleaseEditor({
 }
 
 export function ProjectForm({ project }: { project?: ProjectDetail }) {
-  const action = saveProjectAction.bind(null, project?.id ?? null);
-  const [state, formAction, pending] = useActionState(
-    action,
-    initialProjectActionState,
-  );
+  const [state, setState] = useState<{
+    status: "idle" | "error";
+    message: string;
+    fieldErrors?: Record<string, string[]>;
+  }>({ status: "idle", message: "" });
+  const [pending, setPending] = useState(false);
   const [name, setName] = useState(project?.name ?? "");
   const [slug, setSlug] = useState(project?.slug ?? "");
   const [slugTouched, setSlugTouched] = useState(Boolean(project));
   const [releases, setReleases] = useState<ReleaseInput[]>(
     project?.releases ?? [],
   );
+
+  async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (pending) return;
+    const data = new FormData(event.currentTarget);
+    const parsed = projectInputSchema.safeParse({
+      name: data.get("name"),
+      slug: data.get("slug"),
+      summary: data.get("summary"),
+      description: data.get("description"),
+      type: data.get("type"),
+      status: data.get("status"),
+      visibility: data.get("visibility"),
+      iconUrl: data.get("iconUrl") ?? "",
+      sourceUrl: data.get("sourceUrl") ?? "",
+      issuesUrl: data.get("issuesUrl") ?? "",
+      license: data.get("license") ?? "",
+      clientSide: data.get("clientSide"),
+      serverSide: data.get("serverSide"),
+      featured: data.get("featured") === "on",
+      releases,
+    });
+    if (!parsed.success) {
+      setState({
+        status: "error",
+        message: "Revisa los campos indicados antes de guardar.",
+        fieldErrors: z.flattenError(parsed.error).fieldErrors,
+      });
+      return;
+    }
+    setPending(true);
+    setState({ status: "idle", message: "" });
+    try {
+      await saveProject(project?.id ?? null, parsed.data);
+      window.location.assign(
+        `/admin/projects/?result=${project ? "updated" : "created"}`,
+      );
+    } catch (error) {
+      const code =
+        typeof error === "object" && error && "code" in error
+          ? error.code
+          : null;
+      setState({
+        status: "error",
+        message:
+          code === "23505"
+            ? "Ya existe un proyecto o una versión con ese identificador."
+            : "No se pudo guardar el proyecto. Comprueba la conexión y tus permisos e inténtalo de nuevo.",
+      });
+      setPending(false);
+    }
+  }
 
   const updateRelease = (index: number, next: ReleaseInput) =>
     setReleases((current) =>
@@ -338,8 +393,7 @@ export function ProjectForm({ project }: { project?: ProjectDetail }) {
   };
 
   return (
-    <form action={formAction}>
-      <input type="hidden" name="releases" value={JSON.stringify(releases)} />
+    <form onSubmit={handleSubmit}>
       <div className="flex flex-col gap-5 pb-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <Link

@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState, useDeferredValue, useMemo, useState } from "react";
-import Link from "next/link";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { Link } from "@/components/link";
 import {
   Archive,
   ArrowUpRight,
@@ -14,7 +14,7 @@ import {
   Trash2,
 } from "lucide-react";
 
-import { deleteProjectAction, initialProjectActionState } from "./actions";
+import { deleteProject } from "@/lib/projects-api";
 import { projectStatusLabels, projectTypeLabels } from "./project-labels";
 import type { ProjectSummary } from "./project-schema";
 
@@ -43,13 +43,38 @@ function ProjectIcon({ project }: { project: ProjectSummary }) {
   );
 }
 
-function DeleteProject({ project }: { project: ProjectSummary }) {
+function DeleteProject({
+  project,
+  onDeleted,
+}: {
+  project: ProjectSummary;
+  onDeleted: (id: string) => void;
+}) {
   const [open, setOpen] = useState(false);
-  const action = deleteProjectAction.bind(null, project.id);
-  const [state, formAction, pending] = useActionState(
-    action,
-    initialProjectActionState,
-  );
+  const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !pending) setOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [open, pending]);
+  async function handleDelete(event: React.SyntheticEvent) {
+    event.preventDefault();
+    setPending(true);
+    setError("");
+    try {
+      await deleteProject(project.id);
+      onDeleted(project.id);
+      setOpen(false);
+    } catch {
+      setError("No se pudo eliminar el proyecto. Inténtalo de nuevo.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <>
@@ -78,10 +103,13 @@ function DeleteProject({ project }: { project: ProjectSummary }) {
               Se eliminarán también todos sus lanzamientos y archivos asociados.
               Esta acción no se puede deshacer.
             </p>
-            {state.status === "error" ? (
-              <p className="mt-4 text-xs text-red-300">{state.message}</p>
+            {error ? (
+              <p className="mt-4 text-xs text-red-300">{error}</p>
             ) : null}
-            <form action={formAction} className="mt-6 flex justify-end gap-3">
+            <form
+              onSubmit={handleDelete}
+              className="mt-6 flex justify-end gap-3"
+            >
               <button
                 type="button"
                 disabled={pending}
@@ -104,7 +132,13 @@ function DeleteProject({ project }: { project: ProjectSummary }) {
   );
 }
 
-export function ProjectList({ projects }: { projects: ProjectSummary[] }) {
+export function ProjectList({
+  projects,
+  onDeleted,
+}: {
+  projects: ProjectSummary[];
+  onDeleted: (id: string) => void;
+}) {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("all");
   const [menu, setMenu] = useState<string | null>(null);
@@ -124,7 +158,7 @@ export function ProjectList({ projects }: { projects: ProjectSummary[] }) {
   }, [deferredQuery, projects, status]);
 
   return (
-    <section className="overflow-hidden rounded-2xl border border-white/8 bg-white/[0.018]">
+    <section className="rounded-2xl border border-white/8 bg-white/[0.018]">
       <div className="flex flex-col gap-3 border-b border-white/8 p-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative flex-1 sm:max-w-sm">
           <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-white/30" />
@@ -172,7 +206,7 @@ export function ProjectList({ projects }: { projects: ProjectSummary[] }) {
                   <ProjectIcon project={project} />
                   <div className="min-w-0">
                     <Link
-                      href={`/admin/projects/${project.id}`}
+                      href={`/admin/projects/edit/?id=${project.id}`}
                       className="inline-flex max-w-full items-center gap-1.5 font-medium text-white hover:underline"
                     >
                       <span className="truncate">{project.name}</span>
@@ -244,12 +278,12 @@ export function ProjectList({ projects }: { projects: ProjectSummary[] }) {
                   {menu === project.id ? (
                     <div className="absolute right-0 z-10 mt-1 w-36 overflow-hidden rounded-lg border border-white/10 bg-[#151715] py-1 shadow-xl">
                       <Link
-                        href={`/admin/projects/${project.id}`}
+                        href={`/admin/projects/edit/?id=${project.id}`}
                         className="flex items-center gap-2 px-3 py-2 text-xs text-white/65 hover:bg-white/5 hover:text-white"
                       >
                         <Pencil className="size-3.5" /> Editar
                       </Link>
-                      <DeleteProject project={project} />
+                      <DeleteProject project={project} onDeleted={onDeleted} />
                     </div>
                   ) : null}
                 </div>

@@ -1,8 +1,8 @@
 "use client";
 
 import { useDeferredValue, useMemo, useState } from "react";
-import Link from "next/link";
-import type { Route } from "next";
+import { Link } from "@/components/link";
+
 import {
   ArrowRight,
   ArrowUpRight,
@@ -181,7 +181,7 @@ export function PublicCatalog({ projects }: { projects: ProjectSummary[] }) {
             <div className="project-grid">
               {filtered.map((project, index) => (
                 <Link
-                  href={`/projects/${project.slug}` as Route}
+                  href={`/projects/?slug=${encodeURIComponent(project.slug)}`}
                   key={project.id}
                   className="project-tile"
                 >
