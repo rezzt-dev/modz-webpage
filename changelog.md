@@ -5,6 +5,9 @@
 ### CASTELLANO
 
 #### AÑADIDO
+- incorpora el catálogo público filtrable y las fichas de proyecto en `web-project/src/app/`, con estados de carga, vacío y error y acceso a lanzamientos publicados.
+- incorpora consultas públicas restringidas a contenido publicado y validación de enlaces externos en `web-project/src/server/projects/public-project-repository.ts` y `web-project/src/lib/public-url.ts`.
+- incorpora pruebas de filtros del catálogo y protocolos de enlaces públicos en `web-project/src/features/projects/public-catalog.test.tsx` y `web-project/src/lib/public-url.test.ts`.
 - incorpora el panel privado de proyectos en `web-project/src/app/admin/` con navegación, métricas, estados de carga y error, listado filtrable y formularios para crear y editar proyectos y lanzamientos.
 - incorpora acciones de servidor y un repositorio transaccional en `web-project/src/features/projects/` y `web-project/src/server/projects/` para validar, guardar, sincronizar y eliminar proyectos junto con sus versiones, loaders y archivos.
 - incorpora el modelo relacional de proyectos y lanzamientos en `web-project/src/db/schema/index.ts`, su conexión PostgreSQL en `web-project/src/db/index.ts` y la migración inicial de `web-project/drizzle/`.
@@ -20,11 +23,15 @@
 - incorpora la licencia de uso y las condiciones de distribución en `license.md`.
 
 #### CAMBIADO
-- convierte la ruta raíz de `web-project/src/app/page.tsx` en una entrada al panel de proyectos y actualiza los metadatos de `web-project/src/app/layout.tsx` para describir la gestión de proyectos y lanzamientos.
+- rediseña la identidad visual de `web-project/` con tipografía `jetbrains mono`, componentes industriales monocromáticos, portada, panel y estilos adaptables a móvil.
+- actualiza `web-project/README.md` con las rutas y condiciones de publicación del catálogo.
 - actualiza `web-project/README.md` para documentar la separación entre proyectos y lanzamientos, la migración inicial y el carácter todavía no público del panel de gestión.
 - documenta `modz-web/` como aplicación de referencia y `web-project/` como base de la futura versión profesional.
 - reorganiza la aplicación web completa dentro de `modz-web/`, incluyendo su configuración de vite, código fuente, recursos públicos y dependencias.
 - actualiza las guías de formato y el flujo documental para conservar la ortografía correcta y las rutas reales del repositorio.
+
+#### CORREGIDO
+- normaliza la conexión local de postgresql en `web-project/src/db/database-url.ts`, `web-project/src/db/index.ts` y `web-project/.env.example` para evitar `AggregateError` repetidos cuando la base de datos no está disponible.
 
 #### ELIMINADO
 - elimina del directorio raíz los ficheros de la aplicación que ahora se mantienen bajo `modz-web/`.
@@ -36,6 +43,9 @@
 ### ENGLISH
 
 #### ADDED
+- add the filterable public catalog and project detail pages under `web-project/src/app/`, including loading, empty and error states and access to published releases.
+- add public queries restricted to published content and external link validation in `web-project/src/server/projects/public-project-repository.ts` and `web-project/src/lib/public-url.ts`.
+- add catalog filter and public URL protocol tests in `web-project/src/features/projects/public-catalog.test.tsx` and `web-project/src/lib/public-url.test.ts`.
 - add the private project dashboard under `web-project/src/app/admin/` with navigation, metrics, loading and error states, filterable listings, and forms to create and edit projects and releases.
 - add server actions and a transactional repository under `web-project/src/features/projects/` and `web-project/src/server/projects/` to validate, save, synchronize, and delete projects together with their versions, loaders, and files.
 - add the relational project and release model in `web-project/src/db/schema/index.ts`, its PostgreSQL connection in `web-project/src/db/index.ts`, and the initial migration under `web-project/drizzle/`.
@@ -51,11 +61,15 @@
 - add the usage license and distribution terms in `license.md`.
 
 #### CHANGED
-- change the root route in `web-project/src/app/page.tsx` into an entry point for the project dashboard and update the metadata in `web-project/src/app/layout.tsx` to describe project and release management.
+- redesign the visual identity of `web-project/` with `jetbrains mono`, monochrome industrial components, a home page, an admin panel and responsive styles.
+- update `web-project/README.md` with catalog routes and publication conditions.
 - update `web-project/README.md` to document the separation between projects and releases, the initial migration, and the dashboard's still-private status.
 - document `modz-web/` as the reference application and `web-project/` as the foundation for the future professional version.
 - reorganize the complete web application under `modz-web/`, including its Vite configuration, source code, public assets, and dependencies.
 - update the formatting guidelines and documentation workflow to preserve correct spelling and the repository's actual paths.
+
+#### FIXED
+- normalize the local postgresql connection in `web-project/src/db/database-url.ts`, `web-project/src/db/index.ts`, and `web-project/.env.example` to avoid repeated `AggregateError` failures when the database is unavailable.
 
 #### REMOVED
 - remove the application files from the repository root now maintained under `modz-web/`.

@@ -22,7 +22,7 @@ export default function ProjectsError({
         <button
           type="button"
           onClick={reset}
-          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-semibold text-black hover:bg-emerald-200"
+          className="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-semibold text-black hover:bg-neutral-200"
         >
           <RotateCcw className="size-3.5" /> Reintentar
         </button>

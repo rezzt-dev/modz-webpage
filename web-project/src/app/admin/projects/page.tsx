@@ -52,8 +52,8 @@ export default async function ProjectsPage({
     <>
       <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] text-emerald-300/75 uppercase">
-            <span className="size-1.5 rounded-full bg-emerald-300" /> Biblioteca
+          <div className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] text-neutral-300/75 uppercase">
+            <span className="size-1.5 rounded-full bg-neutral-300" /> Biblioteca
           </div>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
             Gestión de proyectos
@@ -65,7 +65,7 @@ export default async function ProjectsPage({
         </div>
         <Link
           href="/admin/projects/new"
-          className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-white px-4 text-xs font-semibold text-black transition hover:bg-emerald-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-white px-4 text-xs font-semibold text-black transition hover:bg-neutral-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           <CirclePlus className="size-4" /> Nuevo proyecto
         </Link>
@@ -74,22 +74,24 @@ export default async function ProjectsPage({
       {result === "created" || result === "updated" ? (
         <div
           role="status"
-          className="mt-6 flex items-center gap-2 rounded-xl border border-emerald-300/15 bg-emerald-300/[0.06] px-4 py-3 text-xs text-emerald-200"
+          className="mt-6 flex items-center gap-2 rounded-xl border border-neutral-300/15 bg-neutral-300/[0.06] px-4 py-3 text-xs text-neutral-200"
         >
           <CheckCircle2 className="size-4" /> Proyecto{" "}
           {result === "created" ? "creado" : "actualizado"} correctamente.
         </div>
       ) : null}
 
-      <div className="mt-8 grid gap-3 sm:grid-cols-3">
-        <Stat
-          label="Proyectos totales"
-          value={projects.length}
-          icon={FolderKanban}
-        />
-        <Stat label="Publicados" value={published} icon={CheckCircle2} />
-        <Stat label="Archivados" value={archived} icon={Archive} />
-      </div>
+      {!loadError ? (
+        <div className="mt-8 grid gap-3 sm:grid-cols-3">
+          <Stat
+            label="Proyectos totales"
+            value={projects.length}
+            icon={FolderKanban}
+          />
+          <Stat label="Publicados" value={published} icon={CheckCircle2} />
+          <Stat label="Archivados" value={archived} icon={Archive} />
+        </div>
+      ) : null}
 
       <div className="mt-8">
         <div className="mb-4 flex items-center justify-between">
@@ -113,6 +115,12 @@ export default async function ProjectsPage({
               DATABASE_URL es correcta. La interfaz seguirá disponible cuando
               recuperes la conexión.
             </p>
+            <Link
+              href="/admin/projects"
+              className="mt-5 inline-flex border-b border-white/30 pb-1 text-xs text-white hover:border-white"
+            >
+              Reintentar carga
+            </Link>
           </div>
         ) : projects.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-white/10 bg-white/[0.015] px-6 py-20 text-center">

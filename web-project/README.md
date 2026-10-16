@@ -1,6 +1,6 @@
 # MODZ WEB
 
-base técnica de la nueva versión de `modz.dev`. este directorio contiene únicamente el esqueleto del proyecto y las herramientas necesarias para desarrollar el catálogo, el panel de administración y la gestión privada de usuarios.
+base técnica de la nueva versión de `modz.dev`, con catálogo público de proyectos y panel de administración para gestionar sus fichas y lanzamientos.
 
 ## REQUISITOS
 
@@ -16,6 +16,7 @@ cp .env.example .env.local
 ```
 
 los valores de `.env.example` son solo referencias locales. genera un secreto de autenticación propio y no publiques `.env.local`.
+la conexión local de postgresql usa `127.0.0.1` para evitar errores de resolución dual de `localhost` cuando el servidor no está disponible.
 
 ## COMANDOS
 
@@ -74,9 +75,19 @@ web-project/
 └── src/test/            # configuración y utilidades de tests
 ```
 
+## INTERFAZ PÚBLICA
+
+- `/` presenta el catálogo con búsqueda por nombre, resumen, versión o loader y filtros por tipo y loader.
+- `/projects/[slug]` muestra la ficha técnica, los lanzamientos publicados y los enlaces de descarga disponibles.
+- el índice solo muestra proyectos publicados y públicos; los proyectos publicados no listados se pueden abrir por enlace directo, mientras que los borradores, proyectos privados y lanzamientos sin publicar permanecen fuera de las vistas públicas.
+- el catálogo ofrece estados de carga, vacío y error. los enlaces externos públicos se limitan a `http` y `https`.
+- la interfaz utiliza `jetbrains mono`, un sistema visual oscuro y monocromático y adaptaciones para móvil y movimiento reducido.
+
+el contenido público necesita una base de datos migrada y al menos un proyecto publicado. si la conexión falla, se muestra un mensaje de error con opción de reintento.
+
 ## DECISIONES DE ARQUITECTURA
 
-el catálogo antiguo almacena una versión y un launcher directamente en cada proyecto. el nuevo modelo deberá separar el proyecto de sus lanzamientos para permitir varias versiones de minecraft, loaders, archivos y enlaces por mod sin duplicar el contenido principal.
+el catálogo antiguo almacena una versión y un launcher directamente en cada proyecto. el nuevo modelo separa el proyecto de sus lanzamientos para permitir varias versiones de minecraft, loaders, archivos y enlaces por mod sin duplicar el contenido principal.
 
 la gestión de proyectos ya separa la ficha principal de sus lanzamientos, archivos, loaders y versiones de minecraft. las escrituras se validan en el servidor y se ejecutan mediante transacciones para no dejar datos parciales. ejecuta `pnpm db:migrate` antes de iniciar la aplicación por primera vez.
 

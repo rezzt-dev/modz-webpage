@@ -37,7 +37,7 @@ import {
 } from "./project-labels";
 
 const fieldClass =
-  "mt-2 h-11 w-full rounded-lg border border-white/10 bg-black/25 px-3 text-sm text-white placeholder:text-white/20 focus:border-emerald-300/50 focus:outline-none focus:ring-2 focus:ring-emerald-300/10 disabled:cursor-not-allowed disabled:opacity-50";
+  "mt-2 h-11 w-full rounded-lg border border-white/10 bg-black/25 px-3 text-sm text-white placeholder:text-white/20 focus:border-neutral-300/50 focus:outline-none focus:ring-2 focus:ring-neutral-300/10 disabled:cursor-not-allowed disabled:opacity-50";
 const textareaClass = `${fieldClass} h-auto min-h-28 resize-y py-3 leading-relaxed`;
 const labelClass = "text-xs font-medium text-white/65";
 
@@ -84,7 +84,7 @@ function Section({
   return (
     <section className="grid gap-6 border-t border-white/8 py-8 lg:grid-cols-[230px_1fr] lg:gap-12 lg:py-10">
       <div>
-        <p className="text-[10px] font-semibold tracking-[0.2em] text-emerald-300/70 uppercase">
+        <p className="text-[10px] font-semibold tracking-[0.2em] text-neutral-300/70 uppercase">
           {number}
         </p>
         <h2 className="mt-2 text-sm font-semibold">{title}</h2>
@@ -367,7 +367,7 @@ export function ProjectForm({ project }: { project?: ProjectDetail }) {
           <button
             type="submit"
             disabled={pending}
-            className="inline-flex h-10 min-w-36 items-center justify-center gap-2 rounded-lg bg-white px-4 text-xs font-semibold text-black hover:bg-emerald-200 disabled:cursor-wait disabled:opacity-55"
+            className="inline-flex h-10 min-w-36 items-center justify-center gap-2 rounded-lg bg-white px-4 text-xs font-semibold text-black hover:bg-neutral-200 disabled:cursor-wait disabled:opacity-55"
           >
             {pending ? (
               <>
@@ -532,7 +532,7 @@ export function ProjectForm({ project }: { project?: ProjectDetail }) {
               name="featured"
               type="checkbox"
               defaultChecked={project?.featured}
-              className="size-4 rounded border-white/20 bg-black text-emerald-300 focus:ring-emerald-300/25"
+              className="size-4 rounded border-white/20 bg-black text-neutral-300 focus:ring-neutral-300/25"
             />{" "}
             Destacar en el catálogo
           </label>
@@ -652,7 +652,7 @@ export function ProjectForm({ project }: { project?: ProjectDetail }) {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex h-10 min-w-40 items-center justify-center gap-2 rounded-lg bg-white px-4 text-xs font-semibold text-black hover:bg-emerald-200 disabled:cursor-wait disabled:opacity-55"
+          className="inline-flex h-10 min-w-40 items-center justify-center gap-2 rounded-lg bg-white px-4 text-xs font-semibold text-black hover:bg-neutral-200 disabled:cursor-wait disabled:opacity-55"
         >
           {pending ? (
             <>
