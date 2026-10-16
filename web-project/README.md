@@ -78,6 +78,8 @@ web-project/
 
 el catálogo antiguo almacena una versión y un launcher directamente en cada proyecto. el nuevo modelo deberá separar el proyecto de sus lanzamientos para permitir varias versiones de minecraft, loaders, archivos y enlaces por mod sin duplicar el contenido principal.
 
-la autenticación antigua expone credenciales en el cliente y usa un token compartido. better auth y postgresql sustituyen esa base por sesiones de servidor. el alta pública deberá permanecer deshabilitada; los usuarios con acceso al panel serán creados o invitados manualmente por un administrador.
+la gestión de proyectos ya separa la ficha principal de sus lanzamientos, archivos, loaders y versiones de minecraft. las escrituras se validan en el servidor y se ejecutan mediante transacciones para no dejar datos parciales. ejecuta `pnpm db:migrate` antes de iniciar la aplicación por primera vez.
+
+la autenticación antigua expone credenciales en el cliente y usa un token compartido. better auth y postgresql sustituirán esa base por sesiones de servidor. el alta pública deberá permanecer deshabilitada; los usuarios con acceso al panel serán creados o invitados manualmente por un administrador. hasta integrar esa fase, el panel de gestión no debe exponerse públicamente.
 
 la interfaz se implementará por módulos y usará componentes de servidor por defecto. los componentes de cliente quedarán limitados a interacciones que necesiten estado o apis del navegador.

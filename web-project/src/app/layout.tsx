@@ -17,10 +17,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "modz",
+    default: "Panel de proyectos · modz",
     template: "%s · modz",
   },
-  description: "portal profesional para proyectos del ecosistema de minecraft.",
+  description:
+    "Gestión profesional de proyectos y lanzamientos para el ecosistema de Minecraft.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

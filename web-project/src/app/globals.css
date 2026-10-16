@@ -132,3 +132,36 @@
     @apply font-sans;
   }
 }
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  min-width: 320px;
+}
+
+::selection {
+  background: oklch(0.82 0.12 155);
+  color: #07100a;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070807;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid #070807;
+  border-radius: 999px;
+  background: #343734;
+}
+
+select option {
+  background: #111311;
+  color: #f4f5f3;
+}
