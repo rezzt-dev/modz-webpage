@@ -14,6 +14,7 @@
 - incorpora pruebas unitarias de filtros, validación de proyectos y protocolos de enlaces públicos en `web-project/src/features/projects/` y `web-project/src/lib/`.
 
 #### CAMBIADO
+- exigir español de españa y conservar `ñ` y `Ñ`, incluso en formatos que pidan escribir sin acentos
 
 - completar las guías de gestión y el contexto específico del proyecto; conservar las reglas técnicas y verificar las rutas
 - corregir el ejemplo de promociones entre ramas para evitar destinos idénticos al origen
@@ -49,6 +50,7 @@
 - add unit tests for filters, project validation, and public URL protocols under `web-project/src/features/projects/` and `web-project/src/lib/`.
 
 #### CHANGED
+- require spanish from spain and preserve `ñ` and `Ñ`, including formats that omit vowel accents
 
 - complete repository management guides and project-specific context; preserve technical rules and verify paths
 - correct the branch promotion example to avoid destinations identical to the source
