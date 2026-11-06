@@ -16,6 +16,7 @@
 #### CAMBIADO
 
 - completar las guías de gestión y el contexto específico del proyecto; conservar las reglas técnicas y verificar las rutas
+- corregir el ejemplo de promociones entre ramas para evitar destinos idénticos al origen
 - sustituye next.js, drizzle orm, postgresql local y better auth por astro estático y supabase gestionado.
 - adapta el formulario, el listado y la ficha de proyectos para trabajar con consultas rpc y sesiones de supabase desde el navegador.
 - reorganiza estilos, layouts, páginas y componentes para conservar la identidad visual monocromática y mejorar la adaptación móvil.
@@ -50,6 +51,7 @@
 #### CHANGED
 
 - complete repository management guides and project-specific context; preserve technical rules and verify paths
+- correct the branch promotion example to avoid destinations identical to the source
 - replace next.js, drizzle orm, local postgresql, and better auth with static astro and managed supabase.
 - adapt the project form, list, and detail page to use supabase rpc queries and browser sessions.
 - reorganize styles, layouts, pages, and components to preserve the monochrome visual identity and improve mobile behavior.
